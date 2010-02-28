@@ -1,0 +1,6 @@
+[submodule "vendor/Jerk"]
+	path = vendor/Jerk
+	url = git://github.com/gf3/Jerk.git
+[submodule "vendor/sandbox"]
+	path = vendor/sandbox
+	url = git://github.com/gf3/node-sandbox.git
