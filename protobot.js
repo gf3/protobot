@@ -93,7 +93,7 @@ function api(input) {
       sep,
       splitForDocs = function(str, token) {
         var pos;
-        if ((pos = str.lastIndexOf(token)) < 0) return [str];
+        if (typeof token === "undefined" || (pos = str.lastIndexOf(token)) < 0) return [str];
         else return [str.substring(0, pos).split(".").join("/"), str.substr(pos+1)];
       },
       base_url = 'http://api.prototypejs.org/',
@@ -154,7 +154,7 @@ function api(input) {
           'try'
         ]
       },
-      parts = (sep = input.split("").reverse().join("").match(/([#\.])/)[1]) && (method_type = (sep == '#' ? 'instance_method' : 'class_method')) && splitForDocs(input, sep);
+      parts = (sep = (input.split("").reverse().join("").match(/([#\.])/) || [])[1] || true) && (method_type = (sep == '#' ? 'instance_method' : 'class_method')) && splitForDocs(input, sep);
     
     // Shortcut
     if (input in shortcuts) return(base_url + shortcuts[input] + '.html');
