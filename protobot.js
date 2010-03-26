@@ -23,6 +23,39 @@ var sandbox = new Sandbox();
 process.mixin(GLOBAL, require("./vendor/google/google"));
 var google = new Google();
 
+/* ------------------------------ Simple Commands ------------------------------ */
+// Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
+var commands = {
+  about: "http://github.com/gf3/protobot",
+  help: "NO U!",
+  accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators",
+  bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation",
+  dotnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Dot_notation",
+  bubble: "http://www.quirksmode.org/js/events_order.html",
+  eventintro: "http://www.quirksmode.org/js/introevents.html",
+  ninja: "http://ejohn.org/apps/learn",
+  testcase: "see: minimal",
+  minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case.",
+  'debugger': "Debugging JavaScript is easy with the right tools!  Try the Web Inspector for Safari + Chrome http://webkit.org/blog/197/web-inspector-redesign/ or Firebug for Firefox http://getfirebug.com/ or Dragonfly for Opera http://bit.ly/rNzdz",
+  '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way.",
+  vamp: "http://slash7.com/pages/vampires",
+  ES3: "ES3 is edition 3 of ECMA-262, the ECMAScript specification: http://www.ecma-international.org/publications/standards/Ecma-262-arch.htm now obsoleted by `ES5",
+  ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf",
+  spelling: "Spelling and capitalization are important in programming.",
+  pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/",
+  proto: "http://dhtmlkitchen.com/learn/js/enumeration/prototype-chain.jsp"
+};
+
+for (var c in commands) {
+  jerk(function(j) {
+    var cmd = commands[c];
+    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?$", "i"), function(message) {
+      var to = !!message.match_data[1] ? message.match_data[1] : message.user;
+      message.say(to + ": " + cmd);
+    });
+  });
+}
+
 /* ------------------------------ Protobot ------------------------------ */
 jerk(function(j) {
   j.watch_for("debug", function(message) {
@@ -47,12 +80,6 @@ jerk(function(j) {
     var to = !!message.match_data[1] ? message.match_data[1] : "doesn't work";
 
     message.say(to + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless.")
-  });
-  
-  j.watch_for(/^pastie(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var to = !!message.match_data[1] ? message.match_data[1] : message.user;
-
-    message.say(to + ": " + (!!message.match_data[1] ? "Paste links, not code: " : "") + "http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/");
   });
   
   j.watch_for(/^g(?:oogle)? ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
@@ -127,6 +154,7 @@ function api(input) {
           'dollarf',
           'abstract',
           'element',
+          'event',
           'form',
           'form/element',
           'form/element/observer',
