@@ -25,20 +25,32 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * accessproperty
 * bracketnotation
 * bubble
+* commands
 * debugger
 * delegation
 * dotnotation
+* DRY
 * ES3
 * ES5
 * eventintro
+* false
+* fouc
+* gl / glwtd
 * help
 * minimal
 * ninja
 * pastie
+* php
+* point
 * plugins
 * proto
 * protoquery
+* reinvent
 * spelling
 * testcase
+* tias
+* truthy
+* validid
 * vamp
+* WET
 

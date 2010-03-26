@@ -27,6 +27,17 @@ var google = new Google();
 // Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
 var commands = {
   about: "http://github.com/gf3/protobot",
+  'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)',
+  truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript",
+  fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/",
+  '(gl|glwtd)': "http://goodluckwiththatdude.com/",
+  point: "If you have a question, please just ask it. Do not look for topic experts. Do not ask \"Can I ask a question?\", \"Can anyone help?\", or \"Does anybody use/know about foo?\". Don't make people work to find out what your question is.",
+  reinvent: "We will not help you reinvent the wheel if we recommend using the many wheels already available. If you choose to make your own, you're on your own.",
+  tias: "Try It And See",
+  validid: 'ID attributes must begin with a letter ([A-Za-z]) and may be followed by any number of letters, digits ([0-9]), hyphens ("-"), underscores ("_"), colons (":"), and periods ("."). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time',
+  PHP: "You're asking a JavaScript question but you're showing us PHP instead of HTML and JavaScript. Maybe your PHP code results in well-formed JavaScript code, maybe it doesn't; we don't know. Please show us the HTML JavaScript that the browser sees.",
+  DRY: "Don't Repeat Yourself",
+  WET: "Write Everything Twice",
   help: "NO U!",
   cheeseburger: "(|%|)",
   commands: "http://github.com/gf3/protobot/blob/master/COMMANDS.md",
@@ -69,10 +80,6 @@ jerk(function(j) {
   
   j.watch_for(/^(?:hi|hello)$/i, function(message) {
     message.say(message.user + ": oh hai!");
-  });
-  
-  j.watch_for(/^help$/i, function(message) {
-    message.say(message.user + ": NO U!");
   });
   
   j.watch_for(/^eval (.+)/, function(message){
