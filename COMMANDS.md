@@ -20,24 +20,24 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 
 ## Triggers:
 
+* ===
 * about
-* help
 * accessproperty
 * bracketnotation
-* dotnotation
-* delegation
 * bubble
-* eventintro
-* ninja
-* testcase
-* minimal
 * debugger
-* ===
-* vamp
+* delegation
+* dotnotation
 * ES3
 * ES5
-* spelling
+* eventintro
+* help
+* minimal
+* ninja
 * pastie
-* protoquery
 * proto
+* protoquery
+* spelling
+* testcase
+* vamp
 
