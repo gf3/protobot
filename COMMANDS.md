@@ -16,6 +16,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 
   <dt>g / google
   <dd>Return the fist google result. E.g.: `g fermion address map`
+</dl>
 
 ## Triggers:
 
@@ -39,3 +40,4 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * pastie
 * protoquery
 * proto
+

@@ -28,6 +28,7 @@ var google = new Google();
 var commands = {
   about: "http://github.com/gf3/protobot",
   help: "NO U!",
+  commands: "http://github.com/gf3/protobot/blob/master/COMMANDS.md",
   accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators",
   bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation",
   dotnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Dot_notation",
