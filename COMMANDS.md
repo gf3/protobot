@@ -5,17 +5,17 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 ## Commands:
 
 <dl>
-  <dt>api
-  <dd>Lookup prototype documentation. Syntax: `Class.classMethod`, `Class#instanceMethod`, `Class`. E.g.: `api function#bind`
+  <dt>api</dt>
+  <dd>Lookup prototype documentation. Syntax: `Class.classMethod`, `Class#instanceMethod`, `Class`. E.g.: `api function#bind`</dd>
 
-  <dt>mdc
-  <dd>Lookup Mozilla Developer Center documentation. E.g.: `mdc function apply`
+  <dt>mdc</dt>
+  <dd>Lookup Mozilla Developer Center documentation. E.g.: `mdc function apply`</dd>
 
-  <dt>eval
-  <dd>Evaluate some Javascript. E.g.: `eval var a = 1; a++`
+  <dt>eval</dt>
+  <dd>Evaluate some Javascript. E.g.: `eval var a = 1; a++`</dd>
 
-  <dt>g / google
-  <dd>Return the fist google result. E.g.: `g fermion address map`
+  <dt>g / google</dt>
+  <dd>Return the fist google result. E.g.: `g fermion address map`</dd>
 </dl>
 
 ## Triggers:
