@@ -39,6 +39,7 @@ var commands = {
   DRY: "Don't Repeat Yourself",
   WET: "Write Everything Twice",
   help: "NO U!",
+  casesensitive: "The case-sensitivity of document language element names in selectors depends on the document language. For example, in HTML, element names are case-insensitive, but in XML they are case-sensitive.",
   cheeseburger: "(|%|)",
   commands: "http://github.com/gf3/protobot/blob/master/COMMANDS.md",
   accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators",

@@ -25,6 +25,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * accessproperty
 * bracketnotation
 * bubble
+* casesensitive
 * commands
 * debugger
 * delegation
