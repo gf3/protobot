@@ -31,6 +31,7 @@ var commands = {
   accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators",
   bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation",
   dotnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Dot_notation",
+  delegation: "Info: http://pxlz.org/tZ Code: http://pxlz.org/ua",
   bubble: "http://www.quirksmode.org/js/events_order.html",
   eventintro: "http://www.quirksmode.org/js/introevents.html",
   ninja: "http://ejohn.org/apps/learn",
@@ -43,6 +44,7 @@ var commands = {
   ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf",
   spelling: "Spelling and capitalization are important in programming.",
   pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/",
+  protoquery: "STOP! Don't do it. Prototype and jQuery do the same things, you don't need both. It just adds twice the overhead and potential for conflicts. Pick one or the other.",
   proto: "http://dhtmlkitchen.com/learn/js/enumeration/prototype-chain.jsp"
 };
 
