@@ -54,7 +54,7 @@ var commands = {
 for (var c in commands) {
   jerk(function(j) {
     var cmd = commands[c];
-    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?\s*$", "i"), function(message) {
+    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?\\s*$", "i"), function(message) {
       var to = !!message.match_data[1] ? message.match_data[1] : message.user;
       message.say(to + ": " + cmd);
     });
