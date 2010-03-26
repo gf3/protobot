@@ -35,6 +35,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * minimal
 * ninja
 * pastie
+* plugins
 * proto
 * protoquery
 * spelling

@@ -46,6 +46,7 @@ var commands = {
   ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf",
   spelling: "Spelling and capitalization are important in programming.",
   pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/",
+  plugins: "Check out: http://scripteka.com and http://livepipe.net",
   protoquery: "STOP! Don't do it. Prototype and jQuery do the same things, you don't need both. It just adds twice the overhead and potential for conflicts. Pick one or the other.",
   proto: "http://dhtmlkitchen.com/learn/js/enumeration/prototype-chain.jsp"
 };
@@ -53,7 +54,7 @@ var commands = {
 for (var c in commands) {
   jerk(function(j) {
     var cmd = commands[c];
-    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?$", "i"), function(message) {
+    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?\s*$", "i"), function(message) {
       var to = !!message.match_data[1] ? message.match_data[1] : message.user;
       message.say(to + ": " + cmd);
     });
