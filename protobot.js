@@ -30,7 +30,7 @@ var commands = {
   'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)',
   truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript",
   fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/",
-  '(gl|glwtd)': "http://goodluckwiththatdude.com/",
+  '(?:gl|glwtd)': "http://goodluckwiththatdude.com/",
   point: "If you have a question, please just ask it. Do not look for topic experts. Do not ask \"Can I ask a question?\", \"Can anyone help?\", or \"Does anybody use/know about foo?\". Don't make people work to find out what your question is.",
   reinvent: "We will not help you reinvent the wheel if we recommend using the many wheels already available. If you choose to make your own, you're on your own.",
   tias: "Try It And See",
