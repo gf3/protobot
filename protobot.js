@@ -27,7 +27,7 @@ var google = new Google();
 // Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
 var commands = {
   about: "http://github.com/gf3/protobot",
-  appendscript: "var script = document.createElement('script'); script.src="..."; document.body.appendChild(script);",
+  appendscript: "var script = document.createElement('script'); script.src='...'; document.body.appendChild(script);",
   'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)',
   truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript",
   fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/",
