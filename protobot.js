@@ -50,6 +50,7 @@ var commands = {
   bubble: "http://www.quirksmode.org/js/events_order.html",
   eventintro: "http://www.quirksmode.org/js/introevents.html",
   ninja: "http://ejohn.org/apps/learn",
+  sop: "Requests must respect the Same Origin Policy (http://en.wikipedia.org/wiki/Same_origin_policy). Requesting cross-domain content in javascript is generally prohibited. Seeing OPTIONS requests? See https://developer.mozilla.org/en/HTTP_access_control",
   testcase: "see: minimal",
   minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case.",
   'debugger': "Debugging JavaScript is easy with the right tools!  Try the Web Inspector for Safari + Chrome http://webkit.org/blog/197/web-inspector-redesign/ or Firebug for Firefox http://getfirebug.com/ or Dragonfly for Opera http://bit.ly/rNzdz",

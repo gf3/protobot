@@ -36,21 +36,22 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * ES5
 * eventintro
 * false
-* fouc
+* FOUC
 * gl / glwtd
 * help
 * minimal
 * ninja
 * pastie
-* php
+* PHP
 * point
 * plugins
 * proto
 * protoquery
 * reinvent
+* SOP
 * spelling
 * testcase
-* tias
+* TIAS
 * truthy
 * validid
 * vamp
