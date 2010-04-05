@@ -27,7 +27,20 @@ var google = new Google();
 // Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
 var commands = {
   about: "http://github.com/gf3/protobot",
+  appendscript: "var script = document.createElement('script'); script.src='...'; document.body.appendChild(script);",
+  'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)',
+  truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript",
+  fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/",
+  '(?:gl|glwtd)': "http://goodluckwiththatdude.com/",
+  point: "If you have a question, please just ask it. Do not look for topic experts. Do not ask \"Can I ask a question?\", \"Can anyone help?\", or \"Does anybody use/know about foo?\". Don't make people work to find out what your question is.",
+  reinvent: "We will not help you reinvent the wheel if we recommend using the many wheels already available. If you choose to make your own, you're on your own.",
+  tias: "Try It And See",
+  validid: 'ID attributes must begin with a letter ([A-Za-z]) and may be followed by any number of letters, digits ([0-9]), hyphens ("-"), underscores ("_"), colons (":"), and periods ("."). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time',
+  PHP: "You're asking a JavaScript question but you're showing us PHP instead of HTML and JavaScript. Maybe your PHP code results in well-formed JavaScript code, maybe it doesn't; we don't know. Please show us the HTML JavaScript that the browser sees.",
+  DRY: "Don't Repeat Yourself",
+  WET: "Write Everything Twice",
   help: "NO U!",
+  casesensitive: "The case-sensitivity of document language element names in selectors depends on the document language. For example, in HTML, element names are case-insensitive, but in XML they are case-sensitive.",
   cheeseburger: "(|%|)",
   commands: "http://github.com/gf3/protobot/blob/master/COMMANDS.md",
   accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators",
@@ -37,6 +50,7 @@ var commands = {
   bubble: "http://www.quirksmode.org/js/events_order.html",
   eventintro: "http://www.quirksmode.org/js/introevents.html",
   ninja: "http://ejohn.org/apps/learn",
+  sop: "Requests must respect the Same Origin Policy (http://en.wikipedia.org/wiki/Same_origin_policy). Requesting cross-domain content in javascript is generally prohibited. Seeing OPTIONS requests? See https://developer.mozilla.org/en/HTTP_access_control",
   testcase: "see: minimal",
   minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case.",
   'debugger': "Debugging JavaScript is easy with the right tools!  Try the Web Inspector for Safari + Chrome http://webkit.org/blog/197/web-inspector-redesign/ or Firebug for Firefox http://getfirebug.com/ or Dragonfly for Opera http://bit.ly/rNzdz",
@@ -46,6 +60,7 @@ var commands = {
   ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf",
   spelling: "Spelling and capitalization are important in programming.",
   pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/",
+  plugins: "Check out: http://scripteka.com and http://livepipe.net",
   protoquery: "STOP! Don't do it. Prototype and jQuery do the same things, you don't need both. It just adds twice the overhead and potential for conflicts. Pick one or the other.",
   proto: "http://dhtmlkitchen.com/learn/js/enumeration/prototype-chain.jsp"
 };
@@ -53,7 +68,7 @@ var commands = {
 for (var c in commands) {
   jerk(function(j) {
     var cmd = commands[c];
-    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?$", "i"), function(message) {
+    j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?\\s*$", "i"), function(message) {
       var to = !!message.match_data[1] ? message.match_data[1] : message.user;
       message.say(to + ": " + cmd);
     });
@@ -68,10 +83,6 @@ jerk(function(j) {
   
   j.watch_for(/^(?:hi|hello)$/i, function(message) {
     message.say(message.user + ": oh hai!");
-  });
-  
-  j.watch_for(/^help$/i, function(message) {
-    message.say(message.user + ": NO U!");
   });
   
   j.watch_for(/^eval (.+)/, function(message){
