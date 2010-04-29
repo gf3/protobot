@@ -1,27 +1,27 @@
 /* ------------------------------ Includes && Options ------------------------------ */
-process.mixin(GLOBAL, require("./vendor/Jerk/lib/jerk"));
-var sys = require("sys"),
-    http = require("http");
+var sys = require('sys')
+  , jerk = require('./vendor/Jerk/lib/jerk')
+  ;
 
-var options = {
-  server:   "irc.freenode.net",
-  nick:     "protobot",
-  channels: ["#runlevel6", "#prototype"],
-  user: {
-    username: "protobot",
-    hostname: "intertubes",
-    servername: "tube001",
-    realname: "Prototype Bot"
-  }
-};
+var options = 
+  { server:   'irc.freenode.net'
+  , nick:     'protobot'
+  , channels: ['#runlevel6', '#prototype']
+  , user:
+    { username: 'protobot'
+    , hostname: 'intertubes'
+    , servername: 'tube001'
+    , realname: 'Prototype Bot'
+    }
+  };
 
 // Sandbox
-process.mixin(GLOBAL, require("./vendor/sandbox/lib/sandbox"));
-var sandbox = new Sandbox();
+var Sandbox =  require("./vendor/sandbox/lib/sandbox")
+  , sandbox = new Sandbox();
 
 // Google
-process.mixin(GLOBAL, require("./vendor/google/google"));
-var google = new Google();
+var Google = require("./vendor/google/google")
+  , google = new Google();
 
 /* ------------------------------ Simple Commands ------------------------------ */
 // Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml

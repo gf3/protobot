@@ -11,5 +11,5 @@ function Google() {
 }
 
 /* ------------------------------ Export ------------------------------ */
-exports.Google = Google;
+module.exports = Google;
 
