@@ -42,6 +42,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * jic
 * minimal
 * ninja
+* noob
 * pastie
 * PHP
 * point

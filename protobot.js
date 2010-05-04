@@ -47,6 +47,7 @@ var commands =
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
   , minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case."
   , ninja: "http://ejohn.org/apps/learn"
+  , noob: "http://www.marriedtothesea.com/022310/i-hate-thinking.gif"
   , os: "oh snao™"
   , pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/"
   , PHP: "You're asking a JavaScript question but you're showing us PHP instead of HTML and JavaScript. Maybe your PHP code results in well-formed JavaScript code, maybe it doesn't; we don't know. Please show us the HTML JavaScript that the browser sees."
