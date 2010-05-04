@@ -85,6 +85,10 @@ jerk(function(j) {
   j.watch_for(/^(?:hi|hello)$/i, function(message) {
     message.say(message.user + ": oh hai!");
   });
+
+  j.watch_for(/^((?:NO )+)U$/, function(message) {
+    message.say(message.user + ": " + message.match_data[1] + "NO U");
+  });
   
   j.watch_for(/^eval (.+)/, function(message){
     sandbox.run(message.match_data[1], function(output) {
