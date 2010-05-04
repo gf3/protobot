@@ -42,6 +42,7 @@ var commands =
   , ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf"
   , eventintro: "http://www.quirksmode.org/js/introevents.html"
   , help: "NO U!"
+  , jic: "just in case™"
   , 'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)'
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
   , minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case."

@@ -39,6 +39,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * FOUC
 * gl / glwtd
 * help
+* jic
 * minimal
 * ninja
 * pastie
