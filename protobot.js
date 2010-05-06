@@ -43,6 +43,7 @@ var commands =
   , ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript (aka JavaScript) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf"
   , eventintro: "http://www.quirksmode.org/js/introevents.html"
   , help: "NO U!"
+  , ijsc: "☁ It's so just Cloud™ - http://itssojustcloud.com/ - http://groups.google.com/group/jquery-dev/browse_thread/thread/6a39be05b8477401#msg_f90341223bb9b68b ☁"
   , jic: "just in case™"
   , 'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)'
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
@@ -50,6 +51,7 @@ var commands =
   , ninja: "http://ejohn.org/apps/learn"
   , noob: "http://www.marriedtothesea.com/022310/i-hate-thinking.gif"
   , os: "oh snao™"
+  , osisjc: "( oh snao™ is so just cloud™ )™"
   , pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/"
   , PHP: "You're asking a JavaScript question but you're showing us PHP instead of HTML and JavaScript. Maybe your PHP code results in well-formed JavaScript code, maybe it doesn't; we don't know. Please show us the HTML JavaScript that the browser sees."
   , plugins: "Check out: http://scripteka.com and http://livepipe.net"
