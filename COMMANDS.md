@@ -23,6 +23,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * ===
 * about
 * accessproperty
+* anyone
 * appendscript
 * bracketnotation
 * bubble

@@ -28,6 +28,7 @@ var Google = require("./vendor/google/google")
 var commands =
   { about: "http://github.com/gf3/protobot"
   , accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators"
+  , anyone: "Has anyone really been far even as decided to use even go want to do look more like?"
   , appendscript: "var script = document.createElement('script'); script.src='...'; document.body.appendChild(script);"
   , bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation"
   , bubble: "http://www.quirksmode.org/js/events_order.html"
