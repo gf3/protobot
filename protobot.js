@@ -9,7 +9,7 @@ var sys = require('sys')
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'protobotU'
+  , nick:     'protobot'
   , channels: ['#runlevel6', '#prototype']
   , user:
     { username: 'protobot'
