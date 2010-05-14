@@ -1,11 +1,15 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require('sys')
   , jerk = require('./vendor/Jerk/lib/jerk')
-  ;
+  , Sandbox =  require("./vendor/sandbox/lib/sandbox")
+  , Google = require("./vendor/google/google")
+  , options
+  , commands
+  , c
 
-var options = 
+options = 
   { server:   'irc.freenode.net'
-  , nick:     'protobot'
+  , nick:     'protobotU'
   , channels: ['#runlevel6', '#prototype']
   , user:
     { username: 'protobot'
@@ -13,19 +17,17 @@ var options =
     , servername: 'tube001'
     , realname: 'Prototype Bot'
     }
-  };
+  }
 
 // Sandbox
-var Sandbox =  require("./vendor/sandbox/lib/sandbox")
-  , sandbox = new Sandbox();
+sandbox = new Sandbox()
 
 // Google
-var Google = require("./vendor/google/google")
-  , google = new Google();
+google = new Google()
 
 /* ------------------------------ Simple Commands ------------------------------ */
 // Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
-var commands =
+commands =
   { about: "http://github.com/gf3/protobot"
   , accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators"
   , anyone: "Has anyone really been far even as decided to use even go want to do look more like?"
@@ -69,70 +71,67 @@ var commands =
   , WET: "Write Everything Twice"
   , '(?:gl|glwtd)': "http://goodluckwiththatdude.com/"
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
-  };
+  }
 
-for (var c in commands) {
+for (c in commands) {
   jerk(function(j) {
-    var cmd = commands[c];
+    var cmd = commands[c]
     j.watch_for(new RegExp("^" + c + "(?:\\s*@\\s*([-\\[\\]|_\\w]+))?\\s*$", "i"), function(message) {
-      var to = !!message.match_data[1] ? message.match_data[1] : message.user;
-      message.say(to + ": " + cmd);
-    });
-  });
+      message.say(to(message) + ": " + cmd)
+    })
+  })
 }
 
 /* ------------------------------ Protobot ------------------------------ */
 jerk(function(j) {
   j.watch_for("debug", function(message) {
-    message.say(lolwat());
-  });
+    message.say(lolwat())
+  })
   
-  j.watch_for(/^(?:hi|hello)$/i, function(message) {
-    message.say(message.user + ": oh hai!");
-  });
+  j.watch_for(/^(?:hi|hello|hey)$/i, function(message) {
+    message.say(message.user + ": oh hai!")
+  })
 
   j.watch_for(/^((?:NO )+)U$/, function(message) {
-    message.say(message.user + ": " + message.match_data[1] + "NO U");
-  });
+    message.say(message.user + ": " + message.match_data[1] + "NO U")
+  })
   
   j.watch_for(/^eval (.+)/, function(message){
     sandbox.run(message.match_data[1], function(output) {
-      message.say(message.user + ": " + output);
+      message.say(message.user + ": " + output)
     })
-  });
+  })
   
   j.watch_for(/^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var to = !!message.match_data[1] ? message.match_data[1] : "doesn't work";
-
-    message.say(to + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless.")
-  });
+    message.say(to(message, "doesn't work") + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless.")
+  })
   
   j.watch_for(/^g(?:oogle)? ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var to = !!message.match_data[2] ? message.match_data[2] : message.user;
-
+    var user = to(message)
     google.search(message.match_data[1], function(results) {
-      if (results.length) message.say(to + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl);
-      else message.say(to + ": Sorry, no results for '" + message.match_data[1] + "'");
-    });
-  });
+      if (results.length) message.say(user + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl)
+      else message.say(user + ": Sorry, no results for '" + message.match_data[1] + "'")
+    })
+  })
   
   j.watch_for(/^mdc ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var to = !!message.match_data[2] ? message.match_data[2] : message.user;
-
+    var user = to(message)
     google.search(message.match_data[1] + ' site:developer.mozilla.org', function(results) {
-      if (results.length) message.say(to + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl);
-      else message.say(to + ": Sorry, no results for '" + message.match_data[1] + "'");
-    });
-  });
+      if (results.length) message.say(user + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl)
+      else message.say(user + ": Sorry, no results for '" + message.match_data[1] + "'")
+    })
+  })
   
   j.watch_for(/^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function(message) {
-    var to = !!message.match_data[2] ? message.match_data[2] : message.user;
-    message.say(to + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/");
-  });
-}).connect(options);
+    message.say(to(message) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/")
+  })
+}).connect(options)
 
 /* ------------------------------ Functions ------------------------------ */
 function lolwat() {
-  return "LOLWAT";
+  return "LOLWAT"
 }
 
+function to( message, def ) {
+  return !!message.match_data[2] ? message.match_data[2] : def || message.user
+}
