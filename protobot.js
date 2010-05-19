@@ -107,7 +107,7 @@ jerk(function(j) {
   })
   
   j.watch_for(/^g(?:oogle)? ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var user = to(message)
+    var user = to(message, 2)
     google.search(message.match_data[1], function(results) {
       if (results.length) message.say(user + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl)
       else message.say(user + ": Sorry, no results for '" + message.match_data[1] + "'")
@@ -115,7 +115,7 @@ jerk(function(j) {
   })
   
   j.watch_for(/^mdc ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?/, function(message) {
-    var user = to(message)
+    var user = to(message, 2)
     google.search(message.match_data[1] + ' site:developer.mozilla.org', function(results) {
       if (results.length) message.say(user + ": " + results[0].titleNoFormatting + " - " + results[0].unescapedUrl)
       else message.say(user + ": Sorry, no results for '" + message.match_data[1] + "'")
@@ -123,7 +123,7 @@ jerk(function(j) {
   })
   
   j.watch_for(/^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function(message) {
-    message.say(to(message) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/")
+    message.say(to(message, 2) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/")
   })
 }).connect(options)
 
@@ -132,6 +132,8 @@ function lolwat() {
   return "LOLWAT"
 }
 
-function to( message, def ) {
-  return !!message.match_data[2] ? message.match_data[2] : def || message.user
+function to(message, def, idx) {
+  if (typeof idx === 'undefined' && typeof def === 'number') idx = def, def = null
+  else idx = idx || 1
+  return !!message.match_data[idx] ? message.match_data[idx] : def || message.user
 }
