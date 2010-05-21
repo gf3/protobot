@@ -26,7 +26,6 @@ sandbox = new Sandbox()
 google = new Google()
 
 /* ------------------------------ Simple Commands ------------------------------ */
-// Some of these are stolen from: http://github.com/JosephPecoraro/jsircbot/blob/master/commands.yaml
 commands =
   { about: "http://github.com/gf3/protobot"
   , accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators"
