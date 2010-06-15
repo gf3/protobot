@@ -1,6 +1,7 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require('sys')
-  , jerk = require('./vendor/Jerk/lib/jerk')
+  //, jerk = require('./vendor/Jerk/lib/jerk')
+  , jerk = require('../Jerk/lib/jerk')
   , Sandbox =  require("./vendor/sandbox/lib/sandbox")
   , Google = require("./vendor/google/google")
   , options
@@ -11,7 +12,7 @@ var sys = require('sys')
 options = 
   { server:   'irc.freenode.net'
   , nick:     'protobot'
-  , channels: ['#runlevel6', '#prototype']
+  , channels: ['#runlevel6', '#prototype', '#jquery-ot']
   , user:
     { username: 'protobot'
     , hostname: 'intertubes'
