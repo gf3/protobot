@@ -1,7 +1,6 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require('sys')
-  //, jerk = require('./vendor/Jerk/lib/jerk')
-  , jerk = require('../Jerk/lib/jerk')
+  , jerk = require('./vendor/Jerk/lib/jerk')
   , Sandbox =  require("./vendor/sandbox/lib/sandbox")
   , Google = require("./vendor/google/google")
   , options
