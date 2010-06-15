@@ -5,6 +5,7 @@ var sys = require('sys')
   , Google = require("./vendor/google/google")
   , options
   , commands
+  , gol
   , c
 
 options = 
@@ -72,6 +73,17 @@ commands =
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
   }
 
+gol =
+  [ "     _,...,_     "
+  , "   .'@/~~~\@'.   "
+  , "  //~~\___/~~\\  "
+  , " |@\__/@@@\__/@| "
+  , " |@/  \@@@/  \@| "
+  , "  \\__/~~~\__//  "
+  , "   '.@\___/@.'   "
+  , "     `"""""`     "
+  ]
+
 for (c in commands) {
   jerk(function(j) {
     var cmd = commands[c]
@@ -89,6 +101,10 @@ jerk(function(j) {
   
   j.watch_for(/^(?:hi|hello|hey)$/i, function(message) {
     message.say(message.user + ": oh hai!")
+  })
+
+  j.watch_for(/^go(?:a)?l$/i, function(message) {
+    gol.forEach(function(line) { message.say(line) })
   })
 
   j.watch_for(/^((?:NO )+)U$/, function(message) {
