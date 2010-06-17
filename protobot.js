@@ -47,6 +47,7 @@ commands =
   , help: "NO U!"
   , ijsc: "☁ It's so just Cloud™ - http://itssojustcloud.com/ - http://groups.google.com/group/jquery-dev/browse_thread/thread/6a39be05b8477401#msg_f90341223bb9b68b ☁"
   , jic: "just in case™"
+  , jsis: "javascript is javascript is javascript"
   , 'false': 'falsy values in js: null, undefined, NaN, false, zero (the number 0 - "0" is true), "" (empty string)'
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
   , minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case."

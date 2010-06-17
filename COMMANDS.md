@@ -36,6 +36,8 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * ES3
 * ES5
 * eventintro
+* jic
+* jsis
 * false
 * FOUC
 * gl / glwtd
