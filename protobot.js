@@ -32,6 +32,7 @@ commands =
   , accessproperty: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators"
   , anyone: "Has anyone really been far even as decided to use even go want to do look more like?"
   , appendscript: "var script = document.createElement('script'); script.src='...'; document.body.appendChild(script);"
+  , asi: "Automatic Semi-colon Insertion. Read: http://inimino.org/~inimino/blog/javascript_semicolons"
   , bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation"
   , bubble: "http://www.quirksmode.org/js/events_order.html"
   , casesensitive: "The case-sensitivity of document language element names in selectors depends on the document language. For example, in HTML, element names are case-insensitive, but in XML they are case-sensitive."
@@ -75,14 +76,14 @@ commands =
   }
 
 gol =
-  [ "     _,...,_     "
-  , "   .'@/~~~\\@'.   "
+  [ "    _,...,_     "
+  , "  .'@/~~~\\@'.   "
   , "  //~~\\___/~~\\\\  "
-  , " |@\\__/@@@\\__/@| "
-  , " |@/  \\@@@/  \\@| "
+  , "|@\\__/@@@\\__/@| "
+  , "|@/  \\@@@/  \\@| "
   , "  \\\\__/~~~\\__//  "
-  , "   '.@\\___/@.'   "
-  , '     `"""""`     '
+  , "  '.@\\___/@.'   "
+  , '    `"""""`     '
   ]
 
 for (c in commands) {
