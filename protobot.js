@@ -114,7 +114,9 @@ jerk(function(j) {
   })
   
   j.watch_for(/^eval (.+)/, function(message){
-    sandbox.run(message.match_data[1], function(output) {
+    sandbox.run(message.match_data[1], function(output) { var original_length
+      if ((original_length = output.length) > (1024 - message.user.length - 3))
+        output = output.slice(0, 768) + '  (' + (original_length - 768) + ' characters truncated)'
       message.say(message.user + ": " + output)
     })
   })
