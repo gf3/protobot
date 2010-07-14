@@ -110,7 +110,7 @@ jerk(function(j) {
     message.say(lolwat())
   })
 
-  j.watch_for('wat', function(message) {
+  j.watch_for(/^wat$/, function(message) {
     message.say(wat[Math.floor(Math.random() * wat.length)])
   })
   
