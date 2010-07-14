@@ -111,7 +111,7 @@ jerk(function(j) {
   })
 
   j.watch_for('wat', function(message) {
-    message.say(wat[Match.floor(Math.random() * wat.length)])
+    message.say(wat[Math.floor(Math.random() * wat.length)])
   })
   
   j.watch_for(/^(?:hi|hello|hey)$/i, function(message) {
