@@ -5,6 +5,7 @@ var sys = require('sys')
   , Google = require("./vendor/google/google")
   , options
   , commands
+  , wat
   , gol
   , c
 
@@ -75,6 +76,14 @@ commands =
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
   }
 
+wat =
+  [ 'Did you see revolution\'s pad? not yet? it will be a revolution system'
+  , 'Boom! Did you are unimpressed? and now?'
+  , 'To can create a great boom, Nintendo needs to create a poor boom to can counterattack again and impress all their nintendo fans.'
+  , 'Unlike all you, I\'m waiting to see the great boom! The mistery will be revealed and it is on the Revolution\'s controller pad.'
+  , 'Has anyone really been far even as decided to use even go want to do look more like?'
+  ]
+
 gol =
   [ "    _,...,_     "
   , "  .'@/~~~\\@'.   "
@@ -97,8 +106,12 @@ for (c in commands) {
 
 /* ------------------------------ Protobot ------------------------------ */
 jerk(function(j) {
-  j.watch_for("debug", function(message) {
+  j.watch_for('debug', function(message) {
     message.say(lolwat())
+  })
+
+  j.watch_for('wat', function(message) {
+    message.say(wat[Match.floor(Math.random() * wat.length)])
   })
   
   j.watch_for(/^(?:hi|hello|hey)$/i, function(message) {
