@@ -82,6 +82,10 @@ wat =
   , 'To can create a great boom, Nintendo needs to create a poor boom to can counterattack again and impress all their nintendo fans.'
   , 'Unlike all you, I\'m waiting to see the great boom! The mistery will be revealed and it is on the Revolution\'s controller pad.'
   , 'Has anyone really been far even as decided to use even go want to do look more like?'
+  , 'We automated a site recently and several jquery\'s came to using a core engine of jquery 1.3.2'
+  , 'What does the core engine do?  Should one core be OK for all jquery\'s? '
+  , 'When I tried to use one base core, but the functionality didn\'t work.  So far I haven\'t had a problem.'
+  , 'My site is completely unavailable because of you! You bitch!'
   ]
 
 gol =
