@@ -56,6 +56,7 @@ commands =
   , ninja: "http://ejohn.org/apps/learn"
   , noob: "http://www.marriedtothesea.com/022310/i-hate-thinking.gif"
   , os: "oh snao™"
+  , osb: "oh snao™ bitch"
   , osisjc: "( oh snao™ is so just cloud™ )™"
   , pastie: "Paste links not code: http://pastie.org/ , http://jsbin.com/ , http://dpaste.de/ , http://gist.github.com/"
   , PHP: "You're asking a JavaScript question but you're showing us PHP instead of HTML and JavaScript. Maybe your PHP code results in well-formed JavaScript code, maybe it doesn't; we don't know. Please show us the HTML JavaScript that the browser sees."
@@ -86,6 +87,7 @@ wat =
   , 'What does the core engine do?  Should one core be OK for all jquery\'s? '
   , 'When I tried to use one base core, but the functionality didn\'t work.  So far I haven\'t had a problem.'
   , 'My site is completely unavailable because of you! You bitch!'
+  , 'What is this, I don\'t even...'
   ]
 
 gol =
@@ -114,7 +116,7 @@ jerk(function(j) {
     message.say(lolwat())
   })
 
-  j.watch_for(/^wat$/, function(message) {
+  j.watch_for(/\bw[au]t\b/, function(message) {
     message.say(wat[Math.floor(Math.random() * wat.length)])
   })
   
