@@ -88,6 +88,7 @@ wat =
   , 'When I tried to use one base core, but the functionality didn\'t work.  So far I haven\'t had a problem.'
   , 'My site is completely unavailable because of you! You bitch!'
   , 'What is this, I don\'t even...'
+  , 'If I choose lots of files tactics, then I become to have directory traversal security problem?'
   ]
 
 gol =
