@@ -6,7 +6,6 @@ var sys = require('sys')
   , options
   , commands
   , wat
-  , gol
   , c
 
 options = 
@@ -93,17 +92,6 @@ wat =
   , 'If I choose lots of files tactics, then I become to have directory traversal security problem?'
   ]
 
-gol =
-  [ "    _,...,_     "
-  , "  .'@/~~~\\@'.   "
-  , "  //~~\\___/~~\\\\  "
-  , "|@\\__/@@@\\__/@| "
-  , "|@/  \\@@@/  \\@| "
-  , "  \\\\__/~~~\\__//  "
-  , "  '.@\\___/@.'   "
-  , '    `"""""`     '
-  ]
-
 for (c in commands) {
   jerk(function(j) {
     var cmd = commands[c]
@@ -125,10 +113,6 @@ jerk(function(j) {
   
   j.watch_for(/^(?:hi|hello|hey)$/i, function(message) {
     message.say(message.user + ": oh hai!")
-  })
-
-  j.watch_for(/^go(?:a)?l$/i, function(message) {
-    gol.forEach(function(line) { message.say(line) })
   })
 
   j.watch_for(/^((?:NO )+)U$/, function(message) {
