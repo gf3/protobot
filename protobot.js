@@ -132,7 +132,7 @@ jerk( function( j ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
   })
   
-  j.watch_for( /^g(?:oogle)? ([^#@]+)(?:\s*#(\d))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  j.watch_for( /^g(?:oogle)? ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
@@ -143,7 +143,7 @@ jerk( function( j ) {
     })
   })
   
-  j.watch_for( /^mdc ([^#@]+)(?:\s*#(\d))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  j.watch_for( /^mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1] + ' site:developer.mozilla.org', function( results ) {
