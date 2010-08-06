@@ -133,7 +133,7 @@ jerk( function( j ) {
   
   j.watch_for( /^g(?:oogle)? ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?(?:\s*#(\d))?$/, function( message ) {
     var user = to( message, 2 )
-      , res  = message.match_data[2] || 0
+      , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
       if ( results.length )
         message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
@@ -144,7 +144,7 @@ jerk( function( j ) {
   
   j.watch_for( /^mdc ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?(?:\s*#(\d))?$/, function( message ) {
     var user = to( message, 2 )
-      , res  = message.match_data[2] || 0
+      , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1] + ' site:developer.mozilla.org', function( results ) {
       if ( results.length )
         message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
