@@ -122,7 +122,7 @@ jerk( function( j ) {
   j.watch_for( /^eval (.+)/, function( message ){
     sandbox.run( message.match_data[1], function( output ) { var original_length
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
-        output = output.slice( 0, 768 ) + '  ( ' + ( original_length - 768 ) + ' characters truncated )'
+        output = output.replace( /\n/g, ' ' ).slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
       message.say( message.user + ": " + output )
     })
   })
@@ -131,8 +131,8 @@ jerk( function( j ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
   })
   
-  j.watch_for( /^g(?:oogle)? ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?(?:\s*#(\d))?$/, function( message ) {
-    var user = to( message, 2 )
+  j.watch_for( /^g(?:oogle)? ([^#@]+)(?:\s*#(\d))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+    var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
       if ( results.length )
@@ -142,8 +142,8 @@ jerk( function( j ) {
     })
   })
   
-  j.watch_for( /^mdc ([^@]+)(?:\s*@\s*([-\[\]|_\w]+))?(?:\s*#(\d))?$/, function( message ) {
-    var user = to( message, 2 )
+  j.watch_for( /^mdc ([^#@]+)(?:\s*#(\d))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+    var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1] + ' site:developer.mozilla.org', function( results ) {
       if ( results.length )
