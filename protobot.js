@@ -90,6 +90,10 @@ wat =
   , 'My site is completely unavailable because of you! You bitch!'
   , 'What is this, I don\'t even...'
   , 'If I choose lots of files tactics, then I become to have directory traversal security problem?'
+  , 'Given the climate of the current JS developer community I believe jQuery to be the best fit given the climate of the industry.'
+  , 'Using jQuery with XY&Z helps to facilitate learning as the problems are already divided and isolated.'
+  , 'jQuery in my opinion meets the masses where the masses are.'
+  , 'Do I wish everyone understood the tools that dojo provides.'
   ]
 
 for ( c in commands ) {
