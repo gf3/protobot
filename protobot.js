@@ -94,6 +94,7 @@ wat =
   , 'Using jQuery with XY&Z helps to facilitate learning as the problems are already divided and isolated.'
   , 'jQuery in my opinion meets the masses where the masses are.'
   , 'Do I wish everyone understood the tools that dojo provides.'
+  , 'What they are looking for a technology or wa Selbs treniren Nich is difficult, but time and wünche, each brings him purely what they are looking for.'
   ]
 
 for ( c in commands ) {
