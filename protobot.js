@@ -95,6 +95,7 @@ wat =
   , 'jQuery in my opinion meets the masses where the masses are.'
   , 'Do I wish everyone understood the tools that dojo provides.'
   , 'What they are looking for a technology or wa Selbs treniren Nich is difficult, but time and wünche, each brings him purely what they are looking for.'
+  , 'Although div does not work in many older web browsers, it works in recent versions of popular web browsers'
   ]
 
 for ( c in commands ) {
