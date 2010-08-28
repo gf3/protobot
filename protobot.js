@@ -113,7 +113,7 @@ jerk( function( j ) {
     message.say( lolwat() )
   })
 
-  j.watch_for( /\bw[au]t\b/, function( message ) {
+  j.watch_for( /\b(w[au]t|h[eu]h)\b/, function( message ) {
     message.say( wat[Math.floor( Math.random(  ) * wat.length )] )
   })
   
