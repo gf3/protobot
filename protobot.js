@@ -98,6 +98,7 @@ wat =
   , 'Although div does not work in many older web browsers, it works in recent versions of popular web browsers'
   , 'If i use jquery in noconflict plugin will work fine as $?'
   , 'Even before this, you are actually going to use that anyone would want to make more?'
+  , 'How can i use this to select from which element the function was called?'
   ]
 
 for ( c in commands ) {
