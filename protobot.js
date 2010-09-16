@@ -99,6 +99,7 @@ wat =
   , 'If i use jquery in noconflict plugin will work fine as $?'
   , 'Even before this, you are actually going to use that anyone would want to make more?'
   , 'How can i use this to select from which element the function was called?'
+  , 'we can meetup at a cigarbar and smoke a couple fat cubans unless your not into that'
   ]
 
 for ( c in commands ) {
