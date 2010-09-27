@@ -101,6 +101,7 @@ wat =
   , 'How can i use this to select from which element the function was called?'
   , 'we can meetup at a cigarbar and smoke a couple fat cubans unless your not into that'
   , 'The new icon changes your desktop look really professional!'
+  , 'Because in "normal" js is only getElementById which even not working well no normal getElementByClass'
   ]
 
 for ( c in commands ) {
