@@ -102,7 +102,7 @@ wat =
   , 'we can meetup at a cigarbar and smoke a couple fat cubans unless your not into that'
   , 'The new icon changes your desktop look really professional!'
   , 'Because in "normal" js is only getElementById which even not working well no normal getElementByClass'
-  , 'For some reason this doesn't sign in when I barely start using it and when i try to go to it and it isn't signed it, I can't sign in on that page.'
+  , 'For some reason this doesn\'t sign in when I barely start using it and when i try to go to it and it isn\'t signed it, I can\'t sign in on that page.'
   ]
 
 for ( c in commands ) {
