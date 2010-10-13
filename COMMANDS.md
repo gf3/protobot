@@ -11,11 +11,14 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
   <dt>eval</dt>
   <dd>Evaluate some Javascript. E.g.: <code>eval var a = 1; a++</code></dd>
 
-  <dt>g / google</dt>
+  <dt>g</dt>
   <dd>Return the fist google result. E.g.: <code>g fermion address map</code></dd>
 
   <dt>mdc</dt>
   <dd>Lookup Mozilla Developer Center documentation. E.g.: <code>mdc function apply</code></dd>
+
+  <dt>wa</dt>
+  <dd>Compute some shiz on Wolfram Alpha. E.g.: <code>wa Neptune</code></dd>
 </dl>
 
 ## Triggers:
@@ -61,5 +64,6 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * truthy
 * validid
 * vamp
+* wat
 * WET
 

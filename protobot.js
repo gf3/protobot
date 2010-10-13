@@ -3,6 +3,10 @@ var sys = require( 'sys' )
   , jerk = require( './vendor/Jerk/lib/jerk' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
+  , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
+  , sandbox
+  , google
+  , wa
   , options
   , commands
   , wat
@@ -25,6 +29,9 @@ sandbox = new Sandbox()
 
 // Google
 google = new Google()
+
+// WolframAlpha
+wa = new WolframAlpha()
 
 /* ------------------------------ Simple Commands ------------------------------ */
 commands =
@@ -146,7 +153,7 @@ jerk( function( j ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
   })
   
-  j.watch_for( /^g(?:oogle)? ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  j.watch_for( /^g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
@@ -154,6 +161,13 @@ jerk( function( j ) {
         message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
       else 
         message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
+    })
+  })
+
+  j.watch_for( /^wa ([^@]+)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
+    var user = to( message, 2 )
+    wa.search( message.match_data[1], function( result ) {
+      message.say( user + ": " result ? result : "Sorry, no results for '" + message.match_data[1] + "'" )
     })
   })
   
