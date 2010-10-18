@@ -167,7 +167,7 @@ jerk( function( j ) {
   j.watch_for( /^wa ([^@]+)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
     var user = to( message, 2 )
     wa.search( message.match_data[1], function( result ) {
-      message.say( user + ": " ( result ? result : "Sorry, no results for '" + message.match_data[1] + "'" ) )
+      message.say( user + ": " ( result ? result.data : "Sorry, no results for '" + message.match_data[1] + "'" ) )
     })
   })
   
