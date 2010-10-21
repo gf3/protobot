@@ -111,6 +111,7 @@ wat =
   , 'Because in "normal" js is only getElementById which even not working well no normal getElementByClass'
   , 'For some reason this doesn\'t sign in when I barely start using it and when i try to go to it and it isn\'t signed it, I can\'t sign in on that page.'
   , 'can  i use document.write to call a json'
+  , 'once you understand it will be a red head to wash with dirty waters.. no problem enjoy'
   ]
 
 for ( c in commands ) {
