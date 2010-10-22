@@ -113,6 +113,7 @@ wat =
   , 'can i use document.write to call a json'
   , 'once you understand it will be a red head to wash with dirty waters.. no problem enjoy'
   , 'life is hard...  be alive is funny... sufferin for other happyness is a non sense'
+  , 'is it possible to a object of swfobject render itself?'
   ]
 
 for ( c in commands ) {
