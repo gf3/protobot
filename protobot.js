@@ -116,7 +116,7 @@ wat =
 for ( c in commands ) {
   jerk( function( j ) {
     var cmd = commands[c]
-    j.watch_for( new RegExp( "^" + c + "(?:\\s*@\\s*( [-\\[\\]|_\\w]+))?\\s*$", "i" ), function( message ) {
+    j.watch_for( new RegExp( "^" + c + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
       message.say( to( message ) + ": " + cmd )
     })
   })
@@ -124,22 +124,27 @@ for ( c in commands ) {
 
 /* ------------------------------ Protobot ------------------------------ */
 jerk( function( j ) {
+  // Debug!!!
   j.watch_for( 'debug', function( message ) {
     message.say( lolwat() )
   })
 
+  // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
     message.say( wat[Math.floor( Math.random(  ) * wat.length )] )
   })
   
+  // Noobs
   j.watch_for( /^(?:hi|hello|hey)$/i, function( message ) {
     message.say( message.user + ": oh hai!" )
   })
 
+  // NO NO U
   j.watch_for( /^((?:NO )+)U$/, function( message ) {
     message.say( message.user + ": " + message.match_data[1] + "NO U" )
   })
   
+  // Sandbox
   j.watch_for( /^eval (.+)/, function( message ){
     sandbox.run( message.match_data[1], function( output ) { var original_length
       output = output.replace( /\n/g, ' ' )
@@ -149,11 +154,13 @@ jerk( function( j ) {
     })
   })
   
-  j.watch_for( /^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]|_\w]+))?/, function( message ) {
+  // "it doesn't work"
+  j.watch_for( /^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
   })
   
-  j.watch_for( /^g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  // Google
+  j.watch_for( /^g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
@@ -164,13 +171,15 @@ jerk( function( j ) {
     })
   })
 
-  j.watch_for( /^wa ([^@]+)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
+  // Wolfram Alpha
+  j.watch_for( /^wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     var user = to( message, 2 )
     wa.search( message.match_data[1], function( result ) {
       message.say( user + ": " + ( result ? result.data : "Sorry, no results for '" + message.match_data[1] + "'" ) )
     })
   })
   
+  // MDC
   j.watch_for( /^mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
@@ -182,6 +191,7 @@ jerk( function( j ) {
     })
   })
   
+  // Prototype API
   j.watch_for( /^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
     message.say( to( message, 2 ) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/" )
   })
