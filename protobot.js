@@ -114,6 +114,7 @@ wat =
   , 'once you understand it will be a red head to wash with dirty waters.. no problem enjoy'
   , 'life is hard...  be alive is funny... sufferin for other happyness is a non sense'
   , 'is it possible to a object of swfobject render itself?'
+  , 'hmm if a jQuery getter is called andthen chained, does the second function call not call end() on the previous getter to find the previous selection?'
   ]
 
 for ( c in commands ) {
