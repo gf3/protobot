@@ -115,6 +115,7 @@ wat =
   , 'life is hard...  be alive is funny... sufferin for other happyness is a non sense'
   , 'is it possible to a object of swfobject render itself?'
   , 'if a jQuery getter is called andthen chained, does the second function call not call end() on the previous getter to find the previous selection?'
+  , 'Hy just wondering if you had ever made any images with those tick boxes i.e portrait would look great.'
   ]
 
 for ( c in commands ) {
