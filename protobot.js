@@ -1,6 +1,8 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require( 'sys' )
   , fs = require( 'fs' )
+  , exec  = require('child_process').exec
+  , groupie = require('groupie')
   , jerk = require( './vendor/Jerk/lib/jerk' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
@@ -120,6 +122,11 @@ jerk( function( j ) {
   j.watch_for( /^((?:NO )+)U$/, function( message ) {
     message.say( message.user + ': ' + message.match_data[1] + 'NO U' )
   })
+
+  // Live reload
+  j.watch_for( /^reload (\w+)$/, function( message ) {
+    liveReload( message )
+  })
   
   // Sandbox
   j.watch_for( /^eval (.+)/, function( message ){
@@ -187,14 +194,33 @@ function to ( message, def, idx ) {
   return !!message.match_data[idx] ? message.match_data[idx] : def || message.user
 }
 
-function reloadJSON ( what ) {
+function reloadJSON ( what, hollaback ) {
   Object.keys( what ).forEach( function( k ) {
     fs.readFile( what[k], function( er, data ) {
-      if ( er )
-        throw er
-      else
+      if ( ! er )
         dynamic_json[k] = JSON.parse( data )
+      if ( hollaback )
+        hollaback.call( null, er, dynamic_json[k] )
     })
+  })
+}
+
+function liveReload( message ) { var chain
+  switch ( message.match_data[1] ) {
+    case 'wat':
+      chain =
+        [ function( done ) { exec( 'git pull',              { cwd: __dirname }, done ) }
+        , function( done ) { exec( 'git submodule update',  { cwd: __dirname }, done ) }
+        , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' },        done) }
+        ]
+      break
+  }
+
+  groupie.chain( chain, function ( er, results ) {
+    if ( er )
+      message.say( message.user + ': Sorry there was an error reloading "' + message.match_data[1] + '"' )
+    else
+      message.say( message.user + ': Successfully reloaded "' + message.match_data[1] + '"' )
   })
 }
 
