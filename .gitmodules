@@ -4,3 +4,6 @@
 [submodule "vendor/sandbox"]
 	path = vendor/sandbox
 	url = git://github.com/gf3/sandbox.git
+[submodule "vendor/WAT"]
+	path = vendor/WAT
+	url = git://github.com/gf3/WAT.git
