@@ -1,6 +1,7 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require( 'sys' )
   , fs = require( 'fs' )
+  , path = require( 'path' )
   , exec  = require('child_process').exec
   , groupie = require('groupie')
   , jerk = require( './vendor/Jerk/lib/jerk' )
@@ -209,8 +210,7 @@ function liveReload( message ) { var chain
   switch ( message.match_data[1] ) {
     case 'wat':
       chain =
-        [ function( done ) { exec( 'git pull',              { cwd: __dirname }, done ) }
-        , function( done ) { exec( 'git submodule update',  { cwd: __dirname }, done ) }
+        [ function( done ) { exec( 'git pull', { cwd: path.join( __dirname, 'vendor', 'WAT' ) }, done ) }
         , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' },        done) }
         ]
       break
