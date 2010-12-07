@@ -214,13 +214,23 @@ function liveReload( message ) { var chain
         , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' },        done) }
         ]
       break
+    case 'self': // Assumes it will be automagically restarted by forever/god/monit/whatever
+      chain =
+        [ function( done ) { exec( 'git pull',              { cwd: __dirname }, done ) }
+        , function( done ) { exec( 'git submodule init',    { cwd: __dirname }, done ) }
+        , function( done ) { exec( 'git submodule update',  { cwd: __dirname }, done ) }
+        , function( done ) { exec( 'git pull',              { cwd: path.join( __dirname, 'vendor', 'WAT' ) }, done ) } // Always use latest WAT
+        , function( done ) { process.exit( 0 ) }
+        ]
+      break
   }
 
-  groupie.chain( chain, function ( er, results ) {
-    if ( er )
-      message.say( message.user + ': Sorry there was an error reloading "' + message.match_data[1] + '"' )
-    else
-      message.say( message.user + ': Successfully reloaded "' + message.match_data[1] + '"' )
-  })
+  if ( chain )
+    groupie.chain( chain, function ( er, results ) {
+      if ( er )
+        message.say( message.user + ': Sorry there was an error reloading "' + message.match_data[1] + '"' )
+      else
+        message.say( message.user + ': Successfully reloaded "' + message.match_data[1] + '"' )
+    })
 }
 
