@@ -1,5 +1,6 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 var sys = require( 'sys' )
+  , fs = require( 'fs' )
   , jerk = require( './vendor/Jerk/lib/jerk' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
@@ -9,7 +10,7 @@ var sys = require( 'sys' )
   , wa
   , options
   , commands
-  , wat
+  , dynamic_json
   , c
 
 options = 
@@ -23,6 +24,10 @@ options =
     , realname: 'Prototype Bot'
     }
   }
+
+// Dynamic JSON reloads
+dynamic_json = {}
+reloadJSON( { wat: 'vendor/WAT/wat.json' } )
 
 // Sandbox
 sandbox = new Sandbox()
@@ -85,40 +90,6 @@ commands =
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
   }
 
-wat =
-  [ 'Did you see revolution\'s pad? not yet? it will be a revolution system'
-  , 'Boom! Did you are unimpressed? and now?'
-  , 'To can create a great boom, Nintendo needs to create a poor boom to can counterattack again and impress all their nintendo fans.'
-  , 'Unlike all you, I\'m waiting to see the great boom! The mistery will be revealed and it is on the Revolution\'s controller pad.'
-  , 'Has anyone really been far even as decided to use even go want to do look more like?'
-  , 'We automated a site recently and several jquery\'s came to using a core engine of jquery 1.3.2'
-  , 'What does the core engine do?  Should one core be OK for all jquery\'s? '
-  , 'When I tried to use one base core, but the functionality didn\'t work.  So far I haven\'t had a problem.'
-  , 'My site is completely unavailable because of you! You bitch!'
-  , 'What is this, I don\'t even...'
-  , 'If I choose lots of files tactics, then I become to have directory traversal security problem?'
-  , 'Given the climate of the current JS developer community I believe jQuery to be the best fit given the climate of the industry.'
-  , 'Using jQuery with XY&Z helps to facilitate learning as the problems are already divided and isolated.'
-  , 'jQuery in my opinion meets the masses where the masses are.'
-  , 'Do I wish everyone understood the tools that dojo provides.'
-  , 'What they are looking for a technology or wa Selbs treniren Nich is difficult, but time and wünche, each brings him purely what they are looking for.'
-  , 'Although div does not work in many older web browsers, it works in recent versions of popular web browsers'
-  , 'If i use jquery in noconflict plugin will work fine as $?'
-  , 'Even before this, you are actually going to use that anyone would want to make more?'
-  , 'How can i use this to select from which element the function was called?'
-  , 'we can meetup at a cigarbar and smoke a couple fat cubans unless your not into that'
-  , 'The new icon changes your desktop look really professional!'
-  , 'Because in "normal" js is only getElementById which even not working well no normal getElementByClass'
-  , 'For some reason this doesn\'t sign in when I barely start using it and when i try to go to it and it isn\'t signed it, I can\'t sign in on that page.'
-  , 'can i use document.write to call a json'
-  , 'once you understand it will be a red head to wash with dirty waters.. no problem enjoy'
-  , 'life is hard...  be alive is funny... sufferin for other happyness is a non sense'
-  , 'is it possible to a object of swfobject render itself?'
-  , 'if a jQuery getter is called andthen chained, does the second function call not call end() on the previous getter to find the previous selection?'
-  , 'Hy just wondering if you had ever made any images with those tick boxes i.e portrait would look great.'
-  , 'i congratulation with all of you for the time that you spend for me'
-  ]
-
 for ( c in commands ) {
   jerk( function( j ) {
     var cmd = commands[c]
@@ -137,17 +108,17 @@ jerk( function( j ) {
 
   // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
-    message.say( wat[Math.floor( Math.random(  ) * wat.length )] )
+    message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
   })
   
   // Noobs
   j.watch_for( /^(?:hi|hello|hey)$/i, function( message ) {
-    message.say( message.user + ": oh hai!" )
+    message.say( message.user + ': oh hai!' )
   })
 
   // NO NO U
   j.watch_for( /^((?:NO )+)U$/, function( message ) {
-    message.say( message.user + ": " + message.match_data[1] + "NO U" )
+    message.say( message.user + ': ' + message.match_data[1] + 'NO U' )
   })
   
   // Sandbox
@@ -156,7 +127,7 @@ jerk( function( j ) {
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
         output = output.slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
-      message.say( message.user + ": " + output )
+      message.say( message.user + ': ' + output )
     })
   })
   
@@ -171,7 +142,7 @@ jerk( function( j ) {
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
       if ( results.length )
-        message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
+        message.say( user + ': ' + results[res].titleNoFormatting + ' - ' + results[res].unescapedUrl )
       else 
         message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
     })
@@ -205,7 +176,7 @@ jerk( function( j ) {
 
 /* ------------------------------ Functions ------------------------------ */
 function lolwat () {
-  return "LOLWAT"
+  return 'LOLWAT'
 }
 
 function to ( message, def, idx ) {
@@ -214,5 +185,16 @@ function to ( message, def, idx ) {
   else
     idx = idx || 1
   return !!message.match_data[idx] ? message.match_data[idx] : def || message.user
+}
+
+function reloadJSON ( what ) {
+  Object.keys( what ).forEach( function( k ) {
+    fs.readFile( what[k], function( er, data ) {
+      if ( er )
+        throw er
+      else
+        dynamic_json[k] = JSON.parse( data )
+    })
+  })
 }
 
