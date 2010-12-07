@@ -227,8 +227,10 @@ function liveReload( message ) { var chain
 
   if ( chain )
     groupie.chain( chain, function ( er, results ) {
-      if ( er )
+      if ( er ) {
         message.say( message.user + ': Sorry there was an error reloading "' + message.match_data[1] + '"' )
+        message.say( message.user + ': ' + er.message )
+      }
       else
         message.say( message.user + ': Successfully reloaded "' + message.match_data[1] + '"' )
     })
