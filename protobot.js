@@ -26,6 +26,7 @@ options =
     , servername: 'tube001'
     , realname: 'Prototype Bot'
     }
+  , logfolder: '/logs/'
   }
 
 // Dynamic JSON reloads
@@ -180,6 +181,34 @@ jerk( function( j ) {
   j.watch_for( /^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
     message.say( to( message, 2 ) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/" )
   })
+
+  // LOGS
+  j.watch_for(/(.*)/, function (message){
+    var channel = message.source.slice(1)
+      , user = message.user
+      , text = message.text[0]
+      , now = new Date()
+      , year = now.getFullYear()
+      , month = (tmp = now.getMonth() + 1) < 10 ? '0' + tmp : tmp
+      , day = (tmp = now.getDate() ) < 10 ? '0' + tmp : tmp
+      , hour = (tmp = now.getHours() ) < 10 ? '0' + tmp : tmp
+      , minute = (tmp = now.getMinutes() ) < 10 ? '0' + tmp : tmp
+      , basefolder = [process.cwd(), options.logfolder].join('')
+      , folder = [process.cwd(), options.logfolder, channel, '/'].join('')
+      , filename = [folder, year, '-', month, '-', day, '.log'].join('')
+      , str = ['[', hour, ':', minute, '] ', user, ': ', text, "\n"].join("")
+      
+      // Make the directory
+      path.exists(basefolder, function(exists) {
+        if(!exists) {
+          fs.mkdirSync(basefolder, 488)
+          fs.mkdirSync(folder, 488)
+          var file = fs.createWriteStream(filename, {'flags': 'a'})
+          file.write(str)
+        }
+      })
+  })
+
 }).connect( options )
 
 /* ------------------------------ Functions ------------------------------ */
