@@ -106,11 +106,6 @@ for ( c in commands ) {
 
 /* ------------------------------ Protobot ------------------------------ */
 jerk( function( j ) {
-  // Debug!!!
-  j.watch_for( 'debug', function( message ) {
-    message.say( lolwat() )
-  })
-
   // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
     message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
@@ -213,10 +208,6 @@ jerk( function( j ) {
 }).connect( options )
 
 /* ------------------------------ Functions ------------------------------ */
-function lolwat () {
-  return 'LOLWAT'
-}
-
 function to ( message, def, idx ) {
   if ( typeof idx === 'undefined' && typeof def === 'number' )
     idx = def, def = null
