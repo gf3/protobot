@@ -5,7 +5,7 @@
     git submodule update
 
 #Edit
-Edit @protobot.js@ file and change the @options@ at the top of the file.
+Edit `protobot.js` file and change the `options` at the top of the file.
  
 #Requires
 
