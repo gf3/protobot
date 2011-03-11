@@ -1,4 +1,6 @@
 /* ------------------------------ Includes && Options ------------------------------ */
+require( './vendor/strftime/strftime' )
+
 var sys = require( 'sys' )
   , fs = require( 'fs' )
   , path = require( 'path' )
@@ -26,7 +28,7 @@ options =
     , servername: 'tube001'
     , realname: 'Prototype Bot'
     }
-  , logfolder: '/logs/'
+  , logdir: 'logs'
   }
 
 // Dynamic JSON reloads
@@ -179,30 +181,20 @@ jerk( function( j ) {
   })
 
   // LOGS
-  j.watch_for(/(.*)/, function (message){
-    var channel = message.source.slice(1)
-      , user = message.user
-      , text = message.text[0]
-      , now = new Date()
-      , year = now.getFullYear()
-      , month = (tmp = now.getMonth() + 1) < 10 ? '0' + tmp : tmp
-      , day = (tmp = now.getDate() ) < 10 ? '0' + tmp : tmp
-      , hour = (tmp = now.getHours() ) < 10 ? '0' + tmp : tmp
-      , minute = (tmp = now.getMinutes() ) < 10 ? '0' + tmp : tmp
-      , basefolder = [process.cwd(), options.logfolder].join('')
-      , folder = [process.cwd(), options.logfolder, channel, '/'].join('')
-      , filename = [folder, year, '-', month, '-', day, '.log'].join('')
-      , str = ['[', hour, ':', minute, '] ', user, ': ', text, "\n"].join("")
+  j.watch_for( /.*/, function ( message ) {
+    var now = new Date()
+      , location = path.join( options.logdir, message.source )
+      , file = path.join( location, now.strftime( '%Y-%m-%d.log' ) )
       
-      // Make the directory
-      path.exists(basefolder, function(exists) {
-        if(!exists) {
-          fs.mkdirSync(basefolder, 488)
-          fs.mkdirSync(folder, 488)
-          var file = fs.createWriteStream(filename, {'flags': 'a'})
-          file.write(str)
-        }
-      })
+    // Make the directory
+    path.exists( location, function( exists ) {
+      var log
+      if ( ! exists )
+        fs.mkdirSync( location, 0755 )
+      log = fs.createWriteStream( file, { flags: 'a' })
+      log.write( message + '\n' )
+      log.end()
+    })
   })
 
 }).connect( options )
