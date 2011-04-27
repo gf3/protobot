@@ -29,6 +29,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * anyone
 * appendscript
 * asi
+* backtrace
 * bracketnotation
 * bubble
 * casesensitive
@@ -62,6 +63,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
 * testcase
 * TIAS
 * truthy
+* TYVM
 * validid
 * vamp
 * wat

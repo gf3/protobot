@@ -90,6 +90,7 @@ commands =
   , testcase: "see: minimal"
   , tias: "Try It And See"
   , truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript"
+  , tyvm: "Thank you SO SO SO much!"
   , validid: 'ID attributes must begin with a letter ( [A-Za-z] ) and may be followed by any number of letters, digits ( [0-9] ), hyphens ( "-" ), underscores ( "_" ), colons ( ":" ), and periods ( "." ). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time'
   , vamp: "http://slash7.com/pages/vampires"
   , WET: "Write Everything Twice"
@@ -115,7 +116,8 @@ jerk( function( j ) {
   
   // Noobs
   j.watch_for( /^(?:hi|hello|hey)$/i, function( message ) {
-    message.say( message.user + ': oh hai!' )
+    var r = [ 'oh hai!', 'why hello there', 'hey', 'hi', 'sup?', 'hola', 'yo!' ]
+    message.say( message.user + ': ' + r[ Math.round( Math.random() * r.length ) ] )
   })
 
   // NO NO U
