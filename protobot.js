@@ -21,7 +21,7 @@ var sys = require( 'sys' )
 options = 
   { server:   'irc.freenode.net'
   , nick:     'david_mark'
-  , channels: [ '#runlevel6', '#prototype', '#jquery-ot', '#jquery' ]
+  , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
