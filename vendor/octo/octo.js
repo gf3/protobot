@@ -49,7 +49,7 @@ Octo.score = function score ( username, hollaback ) {
       })
 
       score = score * 0.10
-      hollaback.call( null, undefined, score )
+      hollaback.call( null, undefined, ~~score )
     })
   })
 }
