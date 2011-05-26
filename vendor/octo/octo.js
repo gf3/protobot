@@ -1,5 +1,4 @@
 var Octo = module.exports = {}
-  , Levenshtein = require( 'levenshtein' )
   , http = require( 'http' )
   , https = require( 'https' )
   , cache = {}
