@@ -7,6 +7,7 @@ var sys = require( 'sys' )
   , exec  = require('child_process').exec
   , groupie = require('groupie')
   , jerk = require( './vendor/Jerk/lib/jerk' )
+  , Octo = require( './vendor/octo/octo' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
   , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
@@ -129,7 +130,27 @@ jerk( function( j ) {
   j.watch_for( /^reload (\w+)$/, function( message ) {
     liveReload( message )
   })
-  
+
+  // GitHub User
+  j.watch_for( /gh (\w+)/, function( message ) {
+    Octo.user( message.match_data[1], function( err, user ) {
+      if ( err )
+        message.say( 'Error: ' + err.message )
+      else
+        message.say( 'GitHub user: ' + user.login + ' (' + user.name + ') Repos: ' + user.public_repos + ' • Following: ' + user.following + ' • Followers: ' + user.followers )
+    })
+  })
+
+  // Nerd Cred
+  j.watch_for( /cred (\w+)/, function( message ) {
+    Octo.score( message.match_data[1], function( err, score ) {
+      if ( err )
+        message.say( 'Error: ' + err.message )
+      else
+        message.say( 'GitHub User: ' + message.match_data[1] + ' • Score: ' + score )
+    })
+  })
+ 
   // Sandbox
   j.watch_for( /^eval (.+)/, function( message ){
     sandbox.run( message.match_data[1], function( output ) { var original_length
