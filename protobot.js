@@ -127,12 +127,12 @@ jerk( function( j ) {
   })
 
   // Live reload
-  j.watch_for( /^reload (\w+)$/, function( message ) {
+  j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
     liveReload( message )
   })
 
   // GitHub User
-  j.watch_for( /gh (\w+)/, function( message ) {
+  j.watch_for( /^[\/.`?]?gh (\w+)$/, function( message ) {
     Octo.user( message.match_data[1], function( err, user ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -142,7 +142,7 @@ jerk( function( j ) {
   })
 
   // Nerd Cred
-  j.watch_for( /cred (\w+)/, function( message ) {
+  j.watch_for( /^[\/.`?]?cred (\w+)$/, function( message ) {
     Octo.score( message.match_data[1], function( err, score ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -152,7 +152,7 @@ jerk( function( j ) {
   })
  
   // Sandbox
-  j.watch_for( /^eval (.+)/, function( message ){
+  j.watch_for( /^[\/.`?]?eval (.+)/, function( message ){
     sandbox.run( message.match_data[1], function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
@@ -167,7 +167,7 @@ jerk( function( j ) {
   })
   
   // Google
-  j.watch_for( /^g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
+  j.watch_for( /^[\/.`?]?g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
@@ -179,7 +179,7 @@ jerk( function( j ) {
   })
 
   // Wolfram Alpha
-  j.watch_for( /^wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
+  j.watch_for( /^[\/.`?]?wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     var user = to( message, 2 )
     wa.search( message.match_data[1], function( result ) {
       message.say( user + ": " + ( result && result.data ? result.data : "Sorry, no results for '" + message.match_data[1] + "'" ) )
@@ -187,7 +187,7 @@ jerk( function( j ) {
   })
   
   // MDC
-  j.watch_for( /^mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  j.watch_for( /^[\/.`?]?mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1] + ' site:developer.mozilla.org', function( results ) {
