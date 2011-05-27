@@ -121,6 +121,11 @@ jerk( function( j ) {
     message.say( message.user + ': ' + r[ Math.round( Math.random() * r.length ) ] )
   })
 
+  // Boom!
+  j.watch_for( /^Boom!$/i, function( message ) {
+    message.say( 'Did you are unimpressed? and now?' )
+  })
+
   // NO NO U
   j.watch_for( /^((?:NO )+)U$/, function( message ) {
     message.say( message.user + ': ' + message.match_data[1] + 'NO U' )
