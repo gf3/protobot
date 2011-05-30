@@ -13,7 +13,9 @@ function WolframAlpha() {
           , other = /stringified"\s*:\s*"([^"\r\n]*)/g
 
         if ( solution.test( stdout ) )
-          result.data = stdout.match( solution )[1]
+          result.data = stdout
+            .match( solution )[1]
+            .replace( /\//, '/' )
         else {
           match = stdout.match( other )
           if ( !match )
