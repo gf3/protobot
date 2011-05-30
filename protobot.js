@@ -11,6 +11,7 @@ var sys = require( 'sys' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
   , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
+  , unescapeAll = require( './vendor/unescape/unescape' )
   , sandbox
   , google
   , wa
@@ -177,7 +178,7 @@ jerk( function( j ) {
       , res  = +message.match_data[2]-1 || 0
     google.search( message.match_data[1], function( results ) {
       if ( results.length )
-        message.say( user + ': ' + results[res].titleNoFormatting + ' - ' + results[res].unescapedUrl )
+        message.say( user + ': ' + unescapeAll( results[res].titleNoFormatting ) + ' - ' + results[res].unescapedUrl )
       else 
         message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
     })
@@ -187,7 +188,7 @@ jerk( function( j ) {
   j.watch_for( /^[\/.`?]?wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     var user = to( message, 2 )
     wa.search( message.match_data[1], function( result ) {
-      message.say( user + ": " + ( result && result.data ? result.data : "Sorry, no results for '" + message.match_data[1] + "'" ) )
+      message.say( user + ": " + ( result && result.data ? unescapeAll( result.data ) : "Sorry, no results for '" + message.match_data[1] + "'" ) )
     })
   })
   
