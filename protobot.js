@@ -254,7 +254,7 @@ function liveReload( message ) { var chain
       chain =
         [ function( done ) { exec( 'git pull origin master', { cwd: path.join( __dirname, 'vendor', 'WAT' ) }, done ) }
         , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' },        done) }
-        , function( done ) { message.say( message.user + ': Last WAT: ' + dynamic_json.wat[ dynamic_json.wat.length - 1 ] ) }
+        , function( done ) { message.say( message.user + ': Last WAT: ' + dynamic_json.wat[ dynamic_json.wat.length - 1 ] ); done() }
         ]
       break
     case 'self': // Assumes it will be automagically restarted by forever/god/monit/whatever
