@@ -67,6 +67,7 @@ commands =
   , ES5: "ES5 is edition 5 of ECMA-262, the ECMAScript ( aka JavaScript ) specification: http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf"
   , eventintro: "http://www.quirksmode.org/js/introevents.html"
   , evil: "eval is evil! Don't! Read: http://blogs.msdn.com/b/ericlippert/archive/2003/11/01/53329.aspx and http://blogs.msdn.com/b/ericlippert/archive/2003/11/04/53335.aspx"
+  , flip: "(╯‵Д′)╯彡┻━┻"
   , help: "NO U!"
   , isjc: "☁ It's so just Cloud™ - http://itssojustcloud.com/ - http://groups.google.com/group/jquery-dev/browse_thread/thread/6a39be05b8477401#msg_f90341223bb9b68b ☁"
   , jic: "just in case™"
@@ -96,6 +97,7 @@ commands =
   , validid: 'ID attributes must begin with a letter ( [A-Za-z] ) and may be followed by any number of letters, digits ( [0-9] ), hyphens ( "-" ), underscores ( "_" ), colons ( ":" ), and periods ( "." ). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time'
   , vamp: "http://slash7.com/pages/vampires"
   , WET: "Write Everything Twice"
+  , whyyy: "ლ(ﾟдﾟლ)"
   , '( ?:gl|glwtd )': "http://goodluckwiththatdude.com/"
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
   }
