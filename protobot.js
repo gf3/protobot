@@ -69,6 +69,7 @@ commands =
   , evil: "eval is evil! Don't! Read: http://blogs.msdn.com/b/ericlippert/archive/2003/11/01/53329.aspx and http://blogs.msdn.com/b/ericlippert/archive/2003/11/04/53335.aspx"
   , flip: "(╯‵Д′)╯彡┻━┻"
   , help: "NO U!"
+  , heyyy: "(☞ﾟ∀ﾟ)☞"
   , isjc: "☁ It's so just Cloud™ - http://itssojustcloud.com/ - http://groups.google.com/group/jquery-dev/browse_thread/thread/6a39be05b8477401#msg_f90341223bb9b68b ☁"
   , jic: "just in case™"
   , jsis: "javascript is javascript is javascript"
@@ -96,6 +97,7 @@ commands =
   , tyvm: "Thank you SO SO SO much!"
   , validid: 'ID attributes must begin with a letter ( [A-Za-z] ) and may be followed by any number of letters, digits ( [0-9] ), hyphens ( "-" ), underscores ( "_" ), colons ( ":" ), and periods ( "." ). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time'
   , vamp: "http://slash7.com/pages/vampires"
+  , wattt: "(″･ิ_･ิ)っ"
   , WET: "Write Everything Twice"
   , whyyy: "ლ(ﾟдﾟლ)"
   , '( ?:gl|glwtd )': "http://goodluckwiththatdude.com/"
