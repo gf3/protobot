@@ -4,6 +4,9 @@ require( './vendor/strftime/strftime' )
 var sys = require( 'sys' )
   , fs = require( 'fs' )
   , path = require( 'path' )
+  , util = require( 'util' )
+  , http = require( 'http' )
+  , URL = require( 'url' )
   , exec  = require('child_process').exec
   , groupie = require('groupie')
   , jerk = require( './vendor/Jerk/lib/jerk' )
@@ -22,7 +25,7 @@ var sys = require( 'sys' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
+  , nick:     'david_mark2'
   , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
   , user:
     { username: 'david_mark'
@@ -35,7 +38,10 @@ options =
 
 // Dynamic JSON reloads
 dynamic_json = {}
-reloadJSON( { wat: 'vendor/WAT/wat.json' } )
+reloadJSON(
+  { wat: 'vendor/WAT/wat.json'
+  , crew: 'http://ot-crew.com/crew.json'
+  })
 
 // Sandbox
 sandbox = new Sandbox()
@@ -141,8 +147,17 @@ jerk( function( j ) {
     liveReload( message )
   })
 
+  // Finger
+  j.watch_for( /^[\/.`?]?f(?:inger)? (\w+)\s*$/, function( message ) {
+    var user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == message.match_data[1] } )
+    if ( user.length )
+      message.say( '-ot crew • ' + util.inspect( user[0] ).replace( /\n/g, '' ) )
+    else
+      message.say( 'Error: User not found.' )
+  })
+
   // GitHub User
-  j.watch_for( /^[\/.`?]?gh (\w+)$/, function( message ) {
+  j.watch_for( /^[\/.`?]?gh (\w+)\s*$/, function( message ) {
     Octo.user( message.match_data[1], function( err, user ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -152,7 +167,7 @@ jerk( function( j ) {
   })
 
   // Nerd Cred
-  j.watch_for( /^[\/.`?]?cred (\w+)$/, function( message ) {
+  j.watch_for( /^[\/.`?]?cred (\w+)\s*$/, function( message ) {
     Octo.score( message.match_data[1], function( err, score ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -242,13 +257,31 @@ function to ( message, def, idx ) {
 }
 
 function reloadJSON ( what, hollaback ) {
+  hollaback = hollaback || function(){}
+
   Object.keys( what ).forEach( function( k ) {
-    fs.readFile( what[k], function( er, data ) {
-      if ( ! er )
-        dynamic_json[k] = JSON.parse( data )
-      if ( hollaback )
-        hollaback.call( null, er, dynamic_json[k] )
-    })
+    var url
+    if ( what[k].slice( 0, 4 ) == 'http' ) {
+      url = URL.parse( what[k] )
+      http
+        .get( { host: url.host, path: url.pathname + ( url.search || '' ), port: 80 }, function ( res ) {
+          var data = ''
+          res
+            .on( 'data', function ( c ) { data += c } )
+            .on( 'end', function(){
+              var j = JSON.parse( data )
+              hollaback.call( null, undefined, dynamic_json[k] = j )
+            })
+        })
+        .on( 'error', hollaback )
+    }
+    else
+      fs.readFile( what[k], function( er, data ) {
+        if ( ! er )
+          dynamic_json[k] = JSON.parse( data )
+        if ( hollaback )
+          hollaback.call( null, er, dynamic_json[k] )
+      })
   })
 }
 
@@ -257,7 +290,7 @@ function liveReload( message ) { var chain
     case 'wat':
       chain =
         [ function( done ) { exec( 'git pull origin master', { cwd: path.join( __dirname, 'vendor', 'WAT' ) }, done ) }
-        , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' },        done) }
+        , function( done ) { reloadJSON( { wat: 'vendor/WAT/wat.json' }, done) }
         , function( done ) { message.say( message.user + ': Last WAT: ' + dynamic_json.wat[ dynamic_json.wat.length - 1 ] ); done() }
         ]
       break
