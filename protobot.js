@@ -294,6 +294,10 @@ function liveReload( message ) { var chain
         , function( done ) { message.say( message.user + ': Last WAT: ' + dynamic_json.wat[ dynamic_json.wat.length - 1 ] ); done() }
         ]
       break
+    case 'crew':
+      chain =
+        [ function( done ) { reloadJSON( { crew: 'http://ot-crew.com/crew.json' }, done) }
+        ]
     case 'self': // Assumes it will be automagically restarted by forever/god/monit/whatever
       chain =
         [ function( done ) { exec( 'git pull origin master',  { cwd: __dirname }, done ) }
