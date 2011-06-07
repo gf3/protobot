@@ -25,10 +25,8 @@ var sys = require( 'sys' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark2'
-  // , nick:     'david_mark'
-  // , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
-  , channels: [ '#runlevel6' ]
+  , nick:     'david_mark'
+  , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
