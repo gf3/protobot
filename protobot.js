@@ -25,8 +25,10 @@ var sys = require( 'sys' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
+  , nick:     'david_mark2'
+  // , nick:     'david_mark'
+  // , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
+  , channels: [ '#runlevel6' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
@@ -41,6 +43,7 @@ dynamic_json = {}
 reloadJSON(
   { wat: 'vendor/WAT/wat.json'
   , crew: 'http://ot-crew.com/crew.json'
+  , karma: 'karma.json'
   })
 
 // Sandbox
@@ -223,6 +226,29 @@ jerk( function( j ) {
     })
   })
   
+  // Karma
+  j.watch_for( /^karma ([-\[\]|_\w]+)\s*$/, function ( message ) {
+    message.say( message.match_data[1] + ' has ' + ( dynamic_json.karma[ message.match_data[1] ] || 0 ) + ' karma.' )
+  })
+
+  // Karma++
+  j.watch_for( /^([-\[\]|_\w]+)\+\+/, function ( message ) {
+    getKarma( message.match_data[1], function ( err, karma ) {
+      dynamic_json.karma[ message.match_data[1] ] = ++karma
+      message.say( message.match_data[1] + ' now has ' + karma + ' karma.' )
+      writeKarma()
+    })
+  })
+
+  // Karma--
+  j.watch_for( /^([-\[\]|_\w]+)--/, function ( message ) {
+    getKarma( message.match_data[1], function ( err, karma ) {
+      dynamic_json.karma[ message.match_data[1] ] = --karma
+      message.say( message.match_data[1] + ' now has ' + karma + ' karma.' )
+      writeKarma()
+    })
+  })
+
   // Prototype API
   j.watch_for( /^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
     message.say( to( message, 2 ) + ": Sorry, the `api` command is temporarily disabled. Docs here: http://api.prototypejs.org/" )
@@ -254,6 +280,19 @@ function to ( message, def, idx ) {
   else
     idx = idx || 1
   return !!message.match_data[idx] ? message.match_data[idx] : def || message.user
+}
+
+function getKarma ( username, hollaback ) {
+  reloadJSON( { karma: 'karma.json' }, function ( err, data ) {
+    if ( err )
+      hollaback.call( null, err )
+    else
+      hollaback.call( null, undefined, data[ username ] || 0 )
+  })
+}
+
+function writeKarma () {
+  fs.writeFile( 'karma.json', JSON.stringify( dynamic_json.karma ) )
 }
 
 function reloadJSON ( what, hollaback ) {
