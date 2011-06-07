@@ -225,7 +225,7 @@ jerk( function( j ) {
   })
   
   // Karma
-  j.watch_for( /^karma ([-\[\]|_\w]+)\s*$/, function ( message ) {
+  j.watch_for( /^[\/.`?]?karma ([-\[\]|_\w]+)\s*$/, function ( message ) {
     message.say( message.match_data[1] + ' has ' + ( dynamic_json.karma[ message.match_data[1] ] || 0 ) + ' karma.' )
   })
 
