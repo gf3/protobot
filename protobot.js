@@ -25,8 +25,10 @@ var sys = require( 'sys' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
+  , nick:     'david_mark2'
+  // , nick:     'david_mark'
+  // , channels: [ '#runlevel6', '#prototype', '#jquery-ot' ]
+  , channels: [ '#runlevel6' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
@@ -153,7 +155,7 @@ jerk( function( j ) {
 
   // Finger
   j.watch_for( /^[\/.`?]?f(?:inger)?(\s+\w+)?\s*$/, function( message ) {
-    var name = to( message, 2 )
+    var name = to( message, 1 )
       , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
       message.say( '-ot crew • ' + util.inspect( user[0] ).replace( /\n/g, '' ) )
