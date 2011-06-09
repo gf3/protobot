@@ -149,8 +149,9 @@ jerk( function( j ) {
   })
 
   // Finger
-  j.watch_for( /^[\/.`?]?f(?:inger)? (\w+)\s*$/, function( message ) {
-    var user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == message.match_data[1] } )
+  j.watch_for( /^[\/.`?]?f(?:inger)?\s*(\w+)?\s*$/, function( message ) {
+    var name = to( message, 2 )
+      , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
       message.say( '-ot crew • ' + util.inspect( user[0] ).replace( /\n/g, '' ) )
     else
@@ -158,8 +159,9 @@ jerk( function( j ) {
   })
 
   // GitHub User
-  j.watch_for( /^[\/.`?]?gh (\w+)\s*$/, function( message ) {
-    Octo.user( message.match_data[1], function( err, user ) {
+  j.watch_for( /^[\/.`?]?gh\s*(\w+)?\s*$/, function( message ) {
+    var name = to( message, 1 )
+    Octo.user( name, function( err, user ) {
       if ( err )
         message.say( 'Error: ' + err.message )
       else
@@ -168,22 +170,24 @@ jerk( function( j ) {
   })
 
   // Nerd Cred
-  j.watch_for( /^[\/.`?]?cred (\w+)\s*$/, function( message ) {
-    Octo.score( message.match_data[1], function( err, score ) {
+  j.watch_for( /^[\/.`?]?cred\s*(\w+)?\s*$/, function( message ) {
+    var name = to( message, 1 )
+    Octo.score( name, function( err, score ) {
       if ( err )
         message.say( 'Error: ' + err.message )
       else
-        message.say( 'GitHub User: ' + message.match_data[1] + ' • Score: ' + score )
+        message.say( 'GitHub User: ' + name + ' • Score: ' + score )
     })
   })
  
   // Sandbox
-  j.watch_for( /^[\/.`?]?eval (.+)/, function( message ){
+  j.watch_for( /^[\/.`?]?eval (.+)(?:\/\/\s*@\s*([-\[\]|_\w]+))/, function( message ){
+    console.log( message.match_data[1] )
     sandbox.run( message.match_data[1], function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
         output = output.slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
-      message.say( message.user + ': ' + output )
+      message.say( to( message, 2 ) + ': ' + output )
     })
   })
   
@@ -225,8 +229,9 @@ jerk( function( j ) {
   })
   
   // Karma
-  j.watch_for( /^[\/.`?]?karma ([-\[\]|_\w]+)\s*$/, function ( message ) {
-    message.say( message.match_data[1] + ' has ' + ( dynamic_json.karma[ message.match_data[1] ] || 0 ) + ' karma.' )
+  j.watch_for( /^[\/.`?]?karma\s*([-\[\]|_\w]+)?\s*$/, function ( message ) {
+    var user = to( message, 1 )
+    message.say( user + ' has ' + ( dynamic_json.karma[ user ] || 0 ) + ' karma.' )
   })
 
   // Karma++
