@@ -64,6 +64,7 @@ commands =
   , bracketnotation: "https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference/Operators/Member_Operators#Bracket_notation"
   , bubble: "http://www.quirksmode.org/js/events_order.html"
   , casesensitive: "The case-sensitivity of document language element names in selectors depends on the document language. For example, in HTML, element names are case-insensitive, but in XML they are case-sensitive."
+  , cc: "CASE CLOASED >:|"
   , cheeseburger: "(|%|)"
   , commands: "http://github.com/gf3/protobot/blob/master/COMMANDS.md"
   , 'debugger': "Debugging JavaScript is easy with the right tools!  Try the Web Inspector for Safari + Chrome http://webkit.org/blog/197/web-inspector-redesign/ or Firebug for Firefox http://getfirebug.com/ or Dragonfly for Opera http://bit.ly/rNzdz"
@@ -83,6 +84,7 @@ commands =
   , 'false': 'falsy values in js: null, undefined, NaN, false, zero ( the number 0 - "0" is true ), "" ( empty string )'
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
   , minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case."
+  , mlmlm: 'much like multi-level marketing'
   , ninja: "http://ejohn.org/apps/learn"
   , noob: "http://www.marriedtothesea.com/022310/i-hate-thinking.gif"
   , os: "oh snao™"
@@ -102,6 +104,7 @@ commands =
   , tias: "Try It And See"
   , truthy: "Truthy/Falsy Values & Comparison Operators: http://www.sitepoint.com/blogs/2009/07/01/javascript-truthy-falsy/ Truthy/Falsy Values & Boolean Operator Results: http://11heavens.com/falsy-and-truthy-in-javascript"
   , tyvm: "Thank you SO SO SO much!"
+  , uaa: "ur an alligator"
   , validid: 'ID attributes must begin with a letter ( [A-Za-z] ) and may be followed by any number of letters, digits ( [0-9] ), hyphens ( "-" ), underscores ( "_" ), colons ( ":" ), and periods ( "." ). http://www.w3.org/TR/html401/types.html#h-6.2 - furthermore, IDs are unique, meaning only one element in the DOM can have a given ID at any time'
   , vamp: "http://slash7.com/pages/vampires"
   , wattt: "(″･ิ_･ิ)っ"
