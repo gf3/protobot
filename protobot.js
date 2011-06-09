@@ -185,7 +185,6 @@ jerk( function( j ) {
  
   // Sandbox
   j.watch_for( /^[\/.`?]?eval (.+)(?:\/\/\s*@\s*([-\[\]|_\w]+))?/, function( message ){
-    console.log( message.match_data[1] )
     sandbox.run( message.match_data[1], function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
