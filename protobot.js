@@ -184,8 +184,9 @@ jerk( function( j ) {
   })
  
   // Sandbox
-  j.watch_for( /^[\/.`?]?eval (.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ){
-    sandbox.run( message.match_data[1], function( output ) { var original_length
+  j.watch_for( /^[\/.`?]?eval (?:(.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))|(.+))/, function( message ){
+    var js = message.match_data[1] || message.match_data[3]
+    sandbox.run( js, function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
         output = output.slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
