@@ -153,8 +153,8 @@ jerk( function( j ) {
   })
 
   // Finger
-  j.watch_for( /^[\/.`?]?f(?:inger)?\s*(\w+)?\s*$/, function( message ) {
-    var name = to( message, 2 )
+  j.watch_for( /^[\/.`?]?f(?:inger)?(\s+\w+)?\s*$/, function( message ) {
+    var name = to( message, 1 )
       , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
       message.say( '-ot crew • ' + util.inspect( user[0] ).replace( /\n/g, '' ) )
@@ -163,7 +163,7 @@ jerk( function( j ) {
   })
 
   // GitHub User
-  j.watch_for( /^[\/.`?]?gh\s*(\w+)?\s*$/, function( message ) {
+  j.watch_for( /^[\/.`?]?gh(\s+\w+)?\s*$/, function( message ) {
     var name = to( message, 1 )
     Octo.user( name, function( err, user ) {
       if ( err )
@@ -174,7 +174,7 @@ jerk( function( j ) {
   })
 
   // Nerd Cred
-  j.watch_for( /^[\/.`?]?cred\s*(\w+)?\s*$/, function( message ) {
+  j.watch_for( /^[\/.`?]?cred(\s+\w+)?\s*$/, function( message ) {
     var name = to( message, 1 )
     Octo.score( name, function( err, score ) {
       if ( err )
@@ -185,9 +185,9 @@ jerk( function( j ) {
   })
  
   // Sandbox
-  j.watch_for( /^[\/.`?]?eval (.+)(?:\/\/\s*@\s*([-\[\]|_\w]+))/, function( message ){
-    console.log( message.match_data[1] )
-    sandbox.run( message.match_data[1], function( output ) { var original_length
+  j.watch_for( /^[\/.`?]?eval (?:(.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))|(.+))/, function( message ){
+    var js = message.match_data[1] || message.match_data[3]
+    sandbox.run( js, function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
         output = output.slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
@@ -233,7 +233,7 @@ jerk( function( j ) {
   })
   
   // Karma
-  j.watch_for( /^[\/.`?]?karma\s*([-\[\]|_\w]+)?\s*$/, function ( message ) {
+  j.watch_for( /^[\/.`?]?karma(\s+[-\[\]|_\w]+)?\s*$/, function ( message ) {
     var user = to( message, 1 )
     message.say( user + ' has ' + ( dynamic_json.karma[ user ] || 0 ) + ' karma.' )
   })
@@ -286,7 +286,7 @@ function to ( message, def, idx ) {
     idx = def, def = null
   else
     idx = idx || 1
-  return !!message.match_data[idx] ? message.match_data[idx] : def || message.user
+  return !!message.match_data[idx] ? message.match_data[idx].trim() : def || message.user
 }
 
 function getKarma ( username, hollaback ) {
