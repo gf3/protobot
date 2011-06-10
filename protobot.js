@@ -84,7 +84,8 @@ commands =
   , 'false': 'falsy values in js: null, undefined, NaN, false, zero ( the number 0 - "0" is true ), "" ( empty string )'
   , fouc: "http://paulirish.com/2009/avoiding-the-fouc-v3/"
   , minimal: "A minimal test case should contain precisely the HTML and JavaScript necessary to demonstrate the problem, no more and no less.  If it is more than 32 lines, it is probably not a minimal test case."
-  , mlmlm: 'much like multi-level marketing'
+  , mlmlm: "much like multi-level marketing"
+  , mlu: "much like urself"
   , ninja: "http://ejohn.org/apps/learn"
   , noob: "http://www.marriedtothesea.com/022310/i-hate-thinking.gif"
   , os: "oh snao™"
