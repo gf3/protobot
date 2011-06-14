@@ -147,14 +147,14 @@ jerk( function( j ) {
     message.say( message.user + ': ' + message.match_data[1] + 'NO U' )
   })
 
-  // Live reload
-  j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
-    liveReload( message )
-  })
-
   // Y U NO <something>
   j.watch_for( /\by u no\b/i, function( message ) {
     message.say( "(屮'Д')屮" )
+  })
+
+  // Live reload
+  j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
+    liveReload( message )
   })
 
   // Finger
