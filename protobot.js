@@ -152,6 +152,11 @@ jerk( function( j ) {
     liveReload( message )
   })
 
+  // Y U NO <something>
+  j.watch_for( /\by u no\b/i, function( message ) {
+    message.say( "(屮'Д')屮" )
+  })
+
   // Finger
   j.watch_for( /^[\/.`?]?f(?:inger)?(\s+\w+)?\s*$/, function( message ) {
     var name = to( message, 1 )
