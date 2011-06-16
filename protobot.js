@@ -147,8 +147,8 @@ jerk( function( j ) {
     message.say( message.user + ': ' + message.match_data[1] + 'NO U' )
   })
 
-  // Y U NO <something>
-  j.watch_for( /\by u no\b/i, function( message ) {
+  // Y U <something>
+  j.watch_for( /\by u\b/i, function( message ) {
     message.say( "(屮'Д')屮" )
   })
 
