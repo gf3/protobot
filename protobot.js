@@ -244,8 +244,8 @@ jerk( function( j ) {
   })
 
   // Karma++
-  j.watch_for( /^([-\[\]|_\w]+)\+\+\b/, function ( message ) {
-    if ( message.match_data[1] != message.user && message.match_data[1] != message.source )
+  j.watch_for( /^([-\[\]|_\w]+)\+\+$/, function ( message ) {
+    if ( message.match_data[1] != message.user && message.user != message.source )
       getKarma( message.match_data[1], function ( err, karma ) {
         dynamic_json.karma[ message.match_data[1] ] = ++karma
         writeKarma()
@@ -253,8 +253,8 @@ jerk( function( j ) {
   })
 
   // Karma--
-  j.watch_for( /^([-\[\]|_\w]+)--\b/, function ( message ) {
-    if ( message.match_data[1] != message.user && message.match_data[1] != message.source )
+  j.watch_for( /^([-\[\]|_\w]+)--$/, function ( message ) {
+    if ( message.match_data[1] != message.user && message.user != message.source )
       getKarma( message.match_data[1], function ( err, karma ) {
         dynamic_json.karma[ message.match_data[1] ] = --karma
         writeKarma()
