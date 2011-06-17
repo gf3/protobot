@@ -41,7 +41,6 @@ dynamic_json = {}
 reloadJSON(
   { wat: 'vendor/WAT/wat.json'
   , crew: 'http://ot-crew.com/crew.json'
-  , karma: 'karma.json'
   })
 
 // Sandbox
@@ -236,30 +235,6 @@ jerk( function( j ) {
         message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
     })
   })
-  
-  // Karma
-  j.watch_for( /^[\/.`?]?karma(\s+[-\[\]|_\w]+)?\s*$/, function ( message ) {
-    var user = to( message, 1 )
-    message.say( user + ' has ' + ( dynamic_json.karma[ user ] || 0 ) + ' karma.' )
-  })
-
-  // Karma++
-  j.watch_for( /^([-\[\]|_\w]+)\+\+$/, function ( message ) {
-    if ( message.match_data[1] != message.user && message.user != message.source )
-      getKarma( message.match_data[1], function ( err, karma ) {
-        dynamic_json.karma[ message.match_data[1] ] = ++karma
-        writeKarma()
-      })
-  })
-
-  // Karma--
-  j.watch_for( /^([-\[\]|_\w]+)--$/, function ( message ) {
-    if ( message.match_data[1] != message.user && message.user != message.source )
-      getKarma( message.match_data[1], function ( err, karma ) {
-        dynamic_json.karma[ message.match_data[1] ] = --karma
-        writeKarma()
-      })
-  })
 
   // Prototype API
   j.watch_for( /^api ([$\w]+(?:[\.#]\w+)*)(?:\s+@\s*([-\[\]|_\w]+))?/, function( message ) {
@@ -292,19 +267,6 @@ function to ( message, def, idx ) {
   else
     idx = idx || 1
   return !!message.match_data[idx] ? message.match_data[idx].trim() : def || message.user
-}
-
-function getKarma ( username, hollaback ) {
-  reloadJSON( { karma: 'karma.json' }, function ( err, data ) {
-    if ( err )
-      hollaback.call( null, err )
-    else
-      hollaback.call( null, undefined, data[ username ] || 0 )
-  })
-}
-
-function writeKarma () {
-  fs.writeFile( 'karma.json', JSON.stringify( dynamic_json.karma ) )
 }
 
 function reloadJSON ( what, hollaback ) {
