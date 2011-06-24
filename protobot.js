@@ -311,6 +311,7 @@ function liveReload( message ) { var chain
       chain =
         [ function( done ) { reloadJSON( { crew: 'http://ot-crew.com/crew.json' }, done) }
         ]
+      break
     case 'self': // Assumes it will be automagically restarted by forever/god/monit/whatever
       chain =
         [ function( done ) { exec( 'git pull origin master',  { cwd: __dirname }, done ) }
