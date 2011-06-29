@@ -158,7 +158,7 @@ jerk( function( j ) {
   })
 
   // Finger
-  j.watch_for( /^[\/.`?]?f(?:inger)?(\s+\w+)?\s*$/, function( message ) {
+  j.watch_for( /^[\/.`?]?f(?:inger)?(\s+[-\[\]\{\}`|_\w]+)?\s*$/, function( message ) {
     var name = to( message, 1 )
       , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
