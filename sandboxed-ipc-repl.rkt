@@ -1,5 +1,6 @@
 #lang racket
 (require racket/sandbox)
+(require racket/pretty)
 
 (define e (make-evaluator 'racket/base))
-(e (read))
+(pretty-display (e (read)))
