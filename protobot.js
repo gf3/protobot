@@ -204,15 +204,25 @@ jerk( function( j ) {
   // Racket Sandbox
   j.watch_for( /→ (.*)/, function ( message ) {
     var stdout = ''
+      , stderr = ''
       , child = spawn( 'racket', [ 'sandboxed-ipc-repl.rkt' ] )
-      , output = function( data ) {
+      , stdoutput = function( data ) {
           if ( !!data )
             stdout += data
         }
+      , stderrput = function( data ) {
+          if ( !!data )
+            stderr += data
+        }
 
-    child.stdout.on( 'data', output )
-    child.on( 'exit', function( code ) {
-      message.say( message.user + ': ' + stdout )
+    child.stdout.on( 'data', stdoutput )
+    child.stderr.on( 'data', stderrput )
+    child.on( 'exit', function( code ) { var out
+      if ( code )
+        out = stderr.split( '\n' )[0].replace( 'UNKNOWN::0: read', 'Error' )
+      else
+        out = stdout
+      message.say( message.user + ': ' + out )
     })
     child.stdin.write( message.match_data[1] )
     child.stdin.end()    
