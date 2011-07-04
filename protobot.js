@@ -8,6 +8,7 @@ var sys = require( 'sys' )
   , http = require( 'http' )
   , URL = require( 'url' )
   , exec  = require('child_process').exec
+  , spawn = require( 'child_process' ).spawn
   , groupie = require('groupie')
   , jerk = require( './vendor/Jerk/lib/jerk' )
   , Octo = require( './vendor/octo/octo' )
@@ -199,7 +200,24 @@ jerk( function( j ) {
       message.say( to( message, 2 ) + ': ' + output )
     })
   })
-  
+
+  // Racket Sandbox
+  j.watch_for( /→ (.*)/, function ( message ) {
+    var stdout = ''
+      , child = spawn( 'racket', [ 'sandboxed-ipc-repl.rkt' ] )
+      , output = function( data ) {
+          if ( !!data )
+            stdout += data
+        }
+
+    child.stdout.on( 'data', output )
+    child.on( 'exit', function( code ) {
+      message.say( message.user + ': ' + stdout )
+    })
+    child.stdin.write( message.match_data[1] )
+    child.stdin.end()    
+  })
+
   // "it doesn't work"
   j.watch_for( /^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
