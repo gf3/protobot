@@ -9,4 +9,4 @@
     (cond [(null? (cdr l)) (string-append a (car l))]
           [else (jn (cdr l) (string-append a (car l) str))]))))
 
-(pretty-display (e (read)))
+(pretty-write (e (read)))
