@@ -202,7 +202,7 @@ jerk( function( j ) {
   })
 
   // Racket Sandbox
-  j.watch_for( /$→ (.*)/, function ( message ) {
+  j.watch_for( /^→ (.*)/, function ( message ) {
     var stdout = ''
       , stderr = ''
       , child = spawn( 'racket', [ 'sandboxed-ipc-repl.rkt' ] )
