@@ -1,10 +1,12 @@
 #lang racket
-(require racket/sandbox)
-(require racket/pretty)
+(require racket/sandbox
+         racket/pretty)
+(require (planet "describe.rkt" ("williams" "describe.plt" 1 3)))
 
 (define e (make-evaluator 'racket/base '(require racket/list)
                                        '(require racket/vector)
-                                       '(require racket/function)))
+                                       '(require racket/function)
+                                       '(require (planet "describe.rkt" ("williams" "describe.plt" 1 3)))))
 
 (e '(define (join lst str)
   (let jn ([l lst] [a ""])
