@@ -6,6 +6,7 @@
 (define e (make-evaluator 'racket/base '(require racket/list)
                                        '(require racket/vector)
                                        '(require racket/function)
+                                       '(require racket/mpair)
                                        '(require (planet "describe.rkt" ("williams" "describe.plt" 1 3)))))
 
 (e '(define (join lst str)
