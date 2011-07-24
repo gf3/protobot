@@ -153,6 +153,11 @@ jerk( function( j ) {
     message.say( "(屮'Д')屮" )
   })
 
+  // Shrug
+  j.watch_for( /\shrugs\b/i, function( message ) {
+    message.say( "¯\_(ツ)_/¯" )
+  })
+
   // Live reload
   j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
     liveReload( message )
