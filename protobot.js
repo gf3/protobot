@@ -154,7 +154,7 @@ jerk( function( j ) {
   })
 
   // Shrug
-  j.watch_for( /\shrugs\b/i, function( message ) {
+  j.watch_for( /shrugs/i, function( message ) {
     message.say( "¯\_(ツ)_/¯" )
   })
 
