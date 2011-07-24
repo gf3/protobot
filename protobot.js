@@ -155,7 +155,7 @@ jerk( function( j ) {
 
   // Shrug
   j.watch_for( /shrugs/i, function( message ) {
-    message.say( "¯\_(ツ)_/¯" )
+    message.say( "¯\\_(ツ)_/¯" )
   })
 
   // Live reload
