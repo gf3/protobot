@@ -160,7 +160,7 @@ jerk( function( j ) {
 
   // Alligator
   j.watch_for( /\balligator\b/i, function( message ) {
-    message.say( "---==='<" )
+    message.say( "---,==,'<" )
   })
 
   // Live reload
