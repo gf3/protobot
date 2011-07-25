@@ -154,8 +154,13 @@ jerk( function( j ) {
   })
 
   // Shrug
-  j.watch_for( /shrugs/i, function( message ) {
+  j.watch_for( /\bshrugs\b/i, function( message ) {
     message.say( "¯\\_(ツ)_/¯" )
+  })
+
+  // Alligator
+  j.watch_for( /\balligator\b/i, function( message ) {
+    message.say( "---==='<" )
   })
 
   // Live reload
