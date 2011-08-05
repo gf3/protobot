@@ -7,6 +7,7 @@
                                        '(require racket/vector)
                                        '(require racket/function)
                                        '(require racket/mpair)
+                                       '(require racket/port)
                                        '(require net/url)
                                        '(require (planet "describe.rkt" ("williams" "describe.plt" 1 3)))))
 
