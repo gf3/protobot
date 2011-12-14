@@ -196,7 +196,7 @@ bot = jerk( function( j ) {
         message.say( message.user + ': Oops, there was an error: ' + err )
       else {
         message.say( message.user + ': kk' )
-        bot.forget( new RegExp( "^[\\/.`?]" + message.match_data[1] + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ) )
+        bot.forget( new RegExp( "^[\\/.`?]?" + message.match_data[1] + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ) )
       }
     })
   })
@@ -343,7 +343,7 @@ function to ( message, def, idx ) {
 
 function watchForSingle ( trigger, msg ) {
   jerk( function( j ) {
-    j.watch_for( new RegExp( "^[\\/.`?]" + trigger + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
+    j.watch_for( new RegExp( "^[\\/.`?]?" + trigger + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
       message.say( to( message ) + ": " + msg )
     })
   })
