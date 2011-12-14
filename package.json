@@ -1,0 +1,11 @@
+{ "name": "protobot"
+, "version": "0.0.1"
+, "engines": ["node >= 0.6.0"]
+, "main": "protobot.js"
+, "dependencies":
+  { "groupie": ">= 0"
+  , "hiredis": ">= 0"
+  , "redis":   ">= 0"
+  , "jerk":    ">= 1.1.17"
+  }
+}

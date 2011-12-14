@@ -1,21 +1,23 @@
 /* ------------------------------ Includes && Options ------------------------------ */
 require( './vendor/strftime/strftime' )
 
-var sys = require( 'sys' )
+var util = require( 'util' )
   , fs = require( 'fs' )
   , path = require( 'path' )
-  , util = require( 'util' )
   , http = require( 'http' )
   , URL = require( 'url' )
-  , exec  = require('child_process').exec
+  , exec  = require( 'child_process' ).exec
   , spawn = require( 'child_process' ).spawn
+  , redis = require( 'redis' )
   , groupie = require('groupie')
-  , jerk = require( './vendor/Jerk/lib/jerk' )
+  , jerk = require( 'jerk' )
   , Octo = require( './vendor/octo/octo' )
   , Sandbox =  require( './vendor/sandbox/lib/sandbox' )
   , Google = require( './vendor/google/google' )
   , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
   , unescapeAll = require( './vendor/unescape/unescape' )
+  , bot
+  , rclient
   , sandbox
   , google
   , wa
@@ -26,8 +28,8 @@ var sys = require( 'sys' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#runlevel6', '#inimino', '#prototype', '#jquery-ot' ]
+  , nick:     'david_mark2'
+  , channels: [ '#runlevel6' ]//, '#inimino', '#prototype', '#jquery-ot' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
@@ -116,17 +118,25 @@ commands =
   , '===': "For any primitive values o and p, o === p if o and p have the same value and type.  For any Objects o and p, o === p if mutating o will mutate p in the same way."
   }
 
-for ( c in commands ) {
-  jerk( function( j ) {
-    var cmd = commands[c]
-    j.watch_for( new RegExp( "^" + c + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
-      message.say( to( message ) + ": " + cmd )
-    })
-  })
-}
+for ( c in commands )
+  watchForSingle( c, commands[c] )
+
+// Redis
+rclient = redis.createClient( 9307, 'stingfish.redistogo.com' )
+rclient.auth( 'da834e6f78e4ea8c4c25ac20f0c8869a' )
+rclient.on( 'error', function ( err ) {
+  console.log( 'Redis error: ' + err )
+})
+rclient.hgetall( 'triggers', function ( err, obj ) {
+  var i
+  console.log( err, obj )
+  if ( ! err )
+    for ( i in obj )
+      watchForSingle( i, obj[i] )
+})
 
 /* ------------------------------ Protobot ------------------------------ */
-jerk( function( j ) {
+bot = jerk( function( j ) {
   // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
     message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
@@ -166,6 +176,29 @@ jerk( function( j ) {
   // Live reload
   j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
     liveReload( message )
+  })
+
+  // Redis
+  j.watch_for( /^(?:david_mark|protobot|bot-t)[,:]? (\w+) is[,:]? (.+)$/, function( message ) {
+    rclient.hmset( 'triggers', message.match_data[1], message.match_data[2], function( err ) {
+      if ( err )
+        message.say( message.user + ': Oops, there was an error: ' + err )
+      else {
+        message.say( message.user + ': kk' )
+        watchForSingle( message.match_data[1], message.match_data[2] )
+      }
+    })
+  })
+
+  j.watch_for( /^(?:david_mark|protobot|bot-t)[,:]? forget[,:]? (.+)$/, function( message ) {
+    rclient.hdel( 'triggers', message.match_data[1], function( err ) {
+      if ( err )
+        message.say( message.user + ': Oops, there was an error: ' + err )
+      else {
+        message.say( message.user + ': kk' )
+        bot.forget( new RegExp( "^[\\/.`?]" + message.match_data[1] + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ) )
+      }
+    })
   })
 
   // Finger
@@ -308,6 +341,13 @@ function to ( message, def, idx ) {
   return !!message.match_data[idx] ? message.match_data[idx].trim() : def || message.user
 }
 
+function watchForSingle ( trigger, msg ) {
+  jerk( function( j ) {
+    j.watch_for( new RegExp( "^[\\/.`?]" + trigger + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
+      message.say( to( message ) + ": " + msg )
+    })
+  })
+}
 function reloadJSON ( what, hollaback ) {
   hollaback = hollaback || function(){}
 
