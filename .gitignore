@@ -1,3 +1,4 @@
 *.swp
 nohup.out
 node_modules
+logs
