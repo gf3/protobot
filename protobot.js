@@ -179,7 +179,7 @@ bot = jerk( function( j ) {
   })
 
   // Redis
-  j.watch_for( /^(?:david_mark|protobot|bot-t)[,:]? (\w+) is[,:]? (.+)$/, function( message ) {
+  j.watch_for( /^(?:david_mark|protobot|bot\-t)[,:]? (\w+) is[,:]? (.+)$/, function( message ) {
     rclient.hmset( 'triggers', message.match_data[1], message.match_data[2], function( err ) {
       if ( err )
         message.say( message.user + ': Oops, there was an error: ' + err )
@@ -190,7 +190,7 @@ bot = jerk( function( j ) {
     })
   })
 
-  j.watch_for( /^(?:david_mark|protobot|bot-t)[,:]? forget[,:]? (.+)$/, function( message ) {
+  j.watch_for( /^(?:david_mark|protobot|bot\-t)[,:]? forget[,:]? (.+)$/, function( message ) {
     rclient.hdel( 'triggers', message.match_data[1], function( err ) {
       if ( err )
         message.say( message.user + ': Oops, there was an error: ' + err )
