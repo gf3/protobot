@@ -18,7 +18,7 @@ function WolframAlpha() {
             .replace( /\//, '/' )
         else {
           match = stdout.match( other )
-          if ( !match )
+          if ( !match || !match[1] )
             result.data = null
           else
             result.data = match[1]
