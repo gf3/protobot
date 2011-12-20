@@ -1,11 +1,14 @@
-#Install
+# Install
+
+Require node and npm.
 
 ``` zsh
 git clone --recursive git@github.com:gf3/protobot.git
 cd protobot
-npm install groupie
+npm install
 ```
 
-#Edit
+# Edit
+
 Edit `protobot.js` file and change the `options` at the top of the file.
 
