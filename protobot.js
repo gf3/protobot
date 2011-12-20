@@ -28,8 +28,10 @@ var util = require( 'util' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#runlevel6', '#inimino', '#oftn', '#prototype', '#jquery-ot', '#wadsup' ]
+  // , nick:     'david_mark'
+  // , channels: [ '#runlevel6', '#inimino', '#oftn', '#prototype', '#jquery-ot', '#wadsup' ]
+  , nick:     'david_mark2'
+  , channels: [ '#runlevel6' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
@@ -245,7 +247,7 @@ bot = jerk( function( j ) {
   })
 
   // Racket Sandbox
-  j.watch_for( /^→ (.*)/, function ( message ) {
+  j.watch_for( /^rkt[→>] (.*)/, function ( message ) {
     var stdout = ''
       , stderr = ''
       , child = spawn( 'racket', [ 'sandboxed-ipc-repl.rkt' ] )
@@ -263,6 +265,33 @@ bot = jerk( function( j ) {
     child.on( 'exit', function( code ) { var out
       if ( code )
         out = stderr.split( '\n' )[0].replace( 'UNKNOWN::0: read', 'Error' )
+      else
+        out = stdout
+      message.say( message.user + ': ' + out )
+    })
+    child.stdin.write( message.match_data[1] )
+    child.stdin.end()    
+  })
+
+  // Clojure Sandbox
+  j.watch_for( /^clj[→>] (.*)/, function ( message ) {
+    var stdout = ''
+      , stderr = ''
+      , child = spawn( 'java', [ '-jar', 'srepl-1.0.0-SNAPSHOT-standalone.jar' ] )
+      , stdoutput = function( data ) {
+          if ( !!data )
+            stdout += data
+        }
+      , stderrput = function( data ) {
+          if ( !!data )
+            stderr += data
+        }
+
+    child.stdout.on( 'data', stdoutput )
+    child.stderr.on( 'data', stderrput )
+    child.on( 'exit', function( code ) { var out
+      if ( code )
+        out = stderr
       else
         out = stdout
       message.say( message.user + ': ' + out )
