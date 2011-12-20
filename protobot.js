@@ -28,10 +28,8 @@ var util = require( 'util' )
 
 options = 
   { server:   'irc.freenode.net'
-  // , nick:     'david_mark'
-  // , channels: [ '#runlevel6', '#inimino', '#oftn', '#prototype', '#jquery-ot', '#wadsup' ]
-  , nick:     'david_mark2'
-  , channels: [ '#runlevel6' ]
+  , nick:     'david_mark'
+  , channels: [ '#runlevel6', '#inimino', '#oftn', '#prototype', '#jquery-ot', '#wadsup' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
