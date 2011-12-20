@@ -15,7 +15,7 @@ function WolframAlpha() {
         if ( solution.test( stdout ) )
           result.data = stdout
             .match( solution )[1]
-            .replace( /\//, '/' )
+            .replace( /\\\//, '/' )
         else {
           match = stdout.match( other )
           if ( !match || !match[1] )
@@ -24,7 +24,7 @@ function WolframAlpha() {
             result.data = match[1]
               .replace( /stringified"\s*:\s*"/g, '' )
               .replace( /\\n/g, ' ' )
-              .replace( /\//, '/' )
+              .replace( /\\\//, '/' )
         }
 
         hollaback.call( this, result )
