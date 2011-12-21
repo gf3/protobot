@@ -139,7 +139,12 @@ rclient.hgetall( 'triggers', function ( err, obj ) {
 bot = jerk( function( j ) {
   // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
-    message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
+    switch ( message.source ) {
+      case '#jquery-ot':
+      case '#runlevel6':
+        message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
+        break;
+    }
   })
   
   // Noobs
