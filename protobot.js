@@ -139,11 +139,11 @@ rclient.hgetall( 'triggers', function ( err, obj ) {
 bot = jerk( function( j ) {
   // Wat?
   j.watch_for( /\b(w[au]t)\b/, function( message ) {
-    switch ( message.source ) {
+    switch ( String( message.source ) ) {
       case '#jquery-ot':
       case '#runlevel6':
         message.say( dynamic_json.wat[ Math.floor( Math.random() * dynamic_json.wat.length ) ] )
-        break;
+        break
     }
   })
   
@@ -179,7 +179,7 @@ bot = jerk( function( j ) {
   })
 
   // Live reload
-  j.watch_for( /^[\/.`?]?reload (\w+)$/, function( message ) {
+  j.watch_for( /^[\/.,`?]?reload (\w+)$/, function( message ) {
     liveReload( message )
   })
 
@@ -207,7 +207,11 @@ bot = jerk( function( j ) {
   })
 
   // Finger
-  j.watch_for( /^[\/.`?]?f(?:inger)?(\s+[-\[\]\{\}`|_\w]+)?\s*$/, function( message ) {
+  j.watch_for( /^([\/.,`?]?)f(?:inger)?(\s+[-\[\]\{\}`|_\w]+)?\s*$/, function( message ) {
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
     var name = to( message, 1 )
       , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
@@ -217,8 +221,12 @@ bot = jerk( function( j ) {
   })
 
   // GitHub User
-  j.watch_for( /^[\/.`?]?gh(\s+\w+)?\s*$/, function( message ) {
-    var name = to( message, 1 )
+  j.watch_for( /^([\/.,`?]?)gh(\s+\w+)?\s*$/, function( message ) {
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    var name = to( message, 2 )
     Octo.user( name, function( err, user ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -228,8 +236,12 @@ bot = jerk( function( j ) {
   })
 
   // Nerd Cred
-  j.watch_for( /^[\/.`?]?cred(\s+\w+)?\s*$/, function( message ) {
-    var name = to( message, 1 )
+  j.watch_for( /^([\/.,`?]?)cred(\s+\w+)?\s*$/, function( message ) {
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    var name = to( message, 2 )
     Octo.score( name, function( err, score ) {
       if ( err )
         message.say( 'Error: ' + err.message )
@@ -239,13 +251,17 @@ bot = jerk( function( j ) {
   })
  
   // Sandbox
-  j.watch_for( /^[\/.`?]?eval (?:(.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))|(.+))/, function( message ){
-    var js = message.match_data[1] || message.match_data[3]
+  j.watch_for( /^([\/.,`?]?)eval (?:(.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))|(.+))/, function( message ){
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    var js = message.match_data[2] || message.match_data[4]
     sandbox.run( js, function( output ) { var original_length
       output = output.result.replace( /\n/g, ' ' )
       if ( ( original_length = output.length ) > ( 1024 - message.user.length - 3 ) )
         output = output.slice( 0, 768 ) + '  (' + ( original_length - 768 ) + ' characters truncated)'
-      message.say( to( message, 2 ) + ': ' + output )
+      message.say( to( message, 3 ) + ': ' + output )
     })
   })
 
@@ -309,34 +325,49 @@ bot = jerk( function( j ) {
   })
   
   // Google
-  j.watch_for( /^[\/.`?]?g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
-    var user = to( message, 3 )
-      , res  = +message.match_data[2]-1 || 0
-    google.search( message.match_data[1], function( results ) {
+  j.watch_for( /^([\/.,`?]?)g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
+    var user = to( message, 4 )
+      , res  = +message.match_data[3]-1 || 0
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    google.search( message.match_data[2], function( results ) {
       if ( results.length )
         message.say( user + ': ' + unescapeAll( results[res].titleNoFormatting ) + ' - ' + results[res].unescapedUrl )
       else 
-        message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
+        message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
     })
   })
 
   // Wolfram Alpha
-  j.watch_for( /^[\/.`?]?wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
-    var user = to( message, 2 )
-    wa.search( message.match_data[1], function( result ) {
-      message.say( user + ": " + ( result && result.data ? unescapeAll( result.data ) : "Sorry, no results for '" + message.match_data[1] + "'" ) )
+  j.watch_for( /^([\/.,`?]?)wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
+    var user = to( message, 3 )
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    wa.search( message.match_data[2], function( result ) {
+      message.say( user + ": " + ( result && result.data ? unescapeAll( result.data ) : "Sorry, no results for '" + message.match_data[2] + "'" ) )
     })
   })
   
   // MDC
-  j.watch_for( /^[\/.`?]?mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  j.watch_for( /^([\/.,`?]?)mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
-    google.search( message.match_data[1] + ' site:developer.mozilla.org', function( results ) {
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    google.search( message.match_data[2] + ' site:developer.mozilla.org', function( results ) {
       if ( results.length )
         message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
       else
-        message.say( user + ": Sorry, no results for '" + message.match_data[1] + "'" )
+        message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
     })
   })
 
@@ -375,8 +406,12 @@ function to ( message, def, idx ) {
 
 function watchForSingle ( trigger, msg ) {
   jerk( function( j ) {
-    j.watch_for( new RegExp( "^[\\/.`?]?" + trigger + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
-      message.say( to( message ) + ": " + msg )
+    j.watch_for( new RegExp( "^([\\/.,`?])?" + trigger + "(?:\\s*@\\s*([-\\[\\]\\{\\}`|_\\w]+))?\\s*$", "i" ), function( message ) {
+      // Return if botty is present
+      if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+        return
+
+      message.say( to( message, 2 ) + ": " + msg )
     })
   })
 }
