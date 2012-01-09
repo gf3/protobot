@@ -212,7 +212,7 @@ bot = jerk( function( j ) {
     if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
       return
 
-    var name = to( message, 1 )
+    var name = to( message, 2 )
       , user = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == name } )
     if ( user.length )
       message.say( '-ot crew • ' + util.inspect( user[0] ).replace( /\n/g, '' ) )
