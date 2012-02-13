@@ -393,7 +393,7 @@ bot = jerk( function( j ) {
     })
   })
 
-  // caniuse?
+  // CANIUSE?
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
     var user = to( message, 3 )
       , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
@@ -408,29 +408,24 @@ bot = jerk( function( j ) {
             .on( 'data', function ( c ) { data += c } )
             .on( 'end', function(){
               var j = JSON.parse( data )
-              if( !j.support.error )
-              {
+              if( !j.support.error ) {
+                
                 // supported agents
                 var p = j.support.agentsProper
-                
                 // features
                 var f = j.features
                 
                 // concat msg
                 
-                for ( var key in f ) {
-                  if ( f.hasOwnProperty( key ) ) {
-                    msg += f[ key ] + ', '
-                  }
-                }
+                Object.keys( f ).forEach( function( k ) {
+                  msg += f[ k ] + ', '
+                })
                 
                 msg += 'with '
                 
-                for ( var key in p ) {
-                  if ( p.hasOwnProperty( key ) ) {
-                    msg += key + ' ' + p[ key ] + ', '
-                  }
-                }
+                Object.keys( p ).forEach( function( k ) {
+                   msg += k + ' ' + p[ k ] + ', '
+                })
                 
                 message.say( message.user + msg )
               }
