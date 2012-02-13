@@ -397,7 +397,6 @@ bot = jerk( function( j ) {
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
     var user = to( message, 3 )
       , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
-      , msg = ': You can use '
       , msg_use = ''
       , msg_with = ''
       
