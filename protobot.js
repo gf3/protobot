@@ -407,7 +407,7 @@ bot = jerk( function( j ) {
           var data = ''
           res
             .on( 'data', function ( c ) { data += c } )
-            .on( 'end', function(){
+            .on( 'end', function() {
               var j = JSON.parse( data )
               if( !j.support.error ) {
                 
