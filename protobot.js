@@ -417,15 +417,17 @@ bot = jerk( function( j ) {
                 
                 // concat msg
                 
-                Object.keys( f ).forEach( function( k ) {
-                  msg += f[ k ] + ', '
-                })
+                msg += Object.keys( f ).map( function( k ) {
+                  return f[ k ]
+                }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                msg += 'with '
+                msg += ' with '
                 
-                Object.keys( p ).forEach( function( k ) {
-                   msg += k + ' ' + p[ k ] + ', '
-                })
+                msg += Object.keys( p ).map( function( k ) {
+                  return k + ' ' + p[ k ]
+                }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
+                
+                msg += '.'
                 
                 message.say( message.user + msg )
               }
