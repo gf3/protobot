@@ -393,6 +393,52 @@ bot = jerk( function( j ) {
     })
   })
 
+  // caniuse?
+  j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
+    var user = to( message, 3 )
+      , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
+      , msg = ': You can use '
+      
+    if( search )
+    {
+      http
+        .get( { host: 'sandbox.thewikies.com', path: '/caniuse/' + search + '.js?noagent&readable', port: 80 }, function ( res ) {
+          var data = ''
+          res
+            .on( 'data', function ( c ) { data += c } )
+            .on( 'end', function(){
+              var j = JSON.parse( data )
+              if( !j.support.error )
+              {
+                // supported agents
+                var p = j.support.agentsProper
+                
+                // features
+                var f = j.features
+                
+                // concat msg
+                
+                for ( var key in f ) {
+                  if ( f.hasOwnProperty( key ) ) {
+                    msg += f[ key ] + ', '
+                  }
+                }
+                
+                msg += 'with '
+                
+                for ( var key in p ) {
+                  if ( p.hasOwnProperty( key ) ) {
+                    msg += key + ' ' + p[ key ] + ', '
+                  }
+                }
+                
+                message.say( message.user + msg )
+              }
+            })
+        })
+    }
+  })
+
 }).connect( options )
 
 /* ------------------------------ Functions ------------------------------ */
