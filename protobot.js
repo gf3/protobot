@@ -428,7 +428,7 @@ bot = jerk( function( j ) {
                 
                 
                 if( msg_use.length && msg_with.length ) {
-                  message.say( message.user + ': You can use ' + msg_use + 'with ' + msg_with + '.' )
+                  message.say( message.user + ': You can use ' + msg_use + ' with ' + msg_with + '.' )
                 }
               }
             })
