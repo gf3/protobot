@@ -393,11 +393,13 @@ bot = jerk( function( j ) {
     })
   })
 
-  // CANIUSE?
+   // CANIUSE?
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
     var user = to( message, 3 )
       , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
       , msg = ': You can use '
+      , msg_use = ''
+      , msg_with = ''
       
     if( search )
     {
@@ -417,19 +419,18 @@ bot = jerk( function( j ) {
                 
                 // concat msg
                 
-                msg += Object.keys( f ).map( function( k ) {
+                msg_use += Object.keys( f ).map( function( k ) {
                   return f[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                msg += ' with '
-                
-                msg += Object.keys( p ).map( function( k ) {
+                msg_with += Object.keys( p ).map( function( k ) {
                   return k + ' ' + p[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                msg += '.'
                 
-                message.say( message.user + msg )
+                if( msg_use.length && msg_with.length ) {
+                  message.say( message.user + ': You can use ' + msg_use + 'with ' + msg_with + '.' )
+                }
               }
             })
         })
