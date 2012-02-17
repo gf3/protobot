@@ -16,6 +16,7 @@ var util = require( 'util' )
   , Google = require( './vendor/google/google' )
   , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
   , unescapeAll = require( './vendor/unescape/unescape' )
+  , weather = require( './vendor/weather/weather' )
   , bot
   , rclient
   , sandbox
@@ -28,8 +29,10 @@ var util = require( 'util' )
 
 options = 
   { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#RubyOnRails', '#runlevel6', '#inimino', '#prototype', '#jquery-ot', '#wadsup' ]
+  , nick:     'david_markTEST'
+  , channels: [ '#runlevel6' ]
+  // , nick:     'david_mark'
+  // , channels: [ '#RubyOnRails', '#runlevel6', '#inimino', '#prototype', '#jquery-ot', '#wadsup' ]
   , user:
     { username: 'david_mark'
     , hostname: 'intertubes'
@@ -351,6 +354,27 @@ bot = jerk( function( j ) {
 
     wa.search( message.match_data[2], function( result ) {
       message.say( user + ": " + ( result && result.data ? unescapeAll( result.data ) : "Sorry, no results for '" + message.match_data[2] + "'" ) )
+    })
+  })
+
+  // Weather`
+  j.watch_for( /^([\/.,`?]?)weather(\s+[^@]+)?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
+    var user = to( message, 3 )
+      , location = message.match_data[2]
+      , person
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    if ( location == undefined ) {
+      person = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == user } )
+      if ( person.length )
+        location = person[0].location
+    }
+
+    weather( location, function( result ) {
+      message.say( user + ": " + result )
     })
   })
   
