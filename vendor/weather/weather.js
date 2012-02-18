@@ -21,7 +21,7 @@ function toF ( C ) {
   return Math.round( parseInt( C, 10 ) * ( 9 / 5 ) + 32 )
 }
 
-module.exports = function getWeather ( location, holla ) {
+module.exports = function getWeather ( location, justTime, holla ) {
   if ( !location )
     holla( "Please provide a location" )
 
@@ -29,7 +29,7 @@ module.exports = function getWeather ( location, holla ) {
   opt.path += encodeURIComponent( location )
 
   get( opt, function( resp ) {
-    var w, body = ""
+    var w, out, body = ""
 
     resp.on( 'data', function ( chunk ) {
       body += chunk
@@ -43,13 +43,18 @@ module.exports = function getWeather ( location, holla ) {
       try {
         w = JSON.parse( body )
 
-        out = w.value.items[0].channel.item.title
-        out += ": "
-        out += toC( w.value.items[0].channel.item['yweather:condition'].temp )
-        out += "°C / "
-        out += w.value.items[0].channel.item['yweather:condition'].temp
-        out += "°F "
-        out += w.value.items[0].channel.item['yweather:condition'].text
+        if ( justTime ) {
+          out = w.value.items[0].channel.item['yweather:condition'].date
+        }
+        else {
+          out = w.value.items[0].channel.item.title
+          out += ": "
+          out += toC( w.value.items[0].channel.item['yweather:condition'].temp )
+          out += "°C / "
+          out += w.value.items[0].channel.item['yweather:condition'].temp
+          out += "°F "
+          out += w.value.items[0].channel.item['yweather:condition'].text
+        }
 
         holla( out )
       }
