@@ -422,12 +422,12 @@ bot = jerk( function( j ) {
     })
   })
 
-   // CANIUSE?
+  // CANIUSE?
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
     var user = to( message, 3 )
       , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
-      , msg_use = ''
-      , msg_with = ''
+      , use = ''
+      , agents = ''
       
     if( search )
     {
@@ -437,28 +437,24 @@ bot = jerk( function( j ) {
           res
             .on( 'data', function ( c ) { data += c } )
             .on( 'end', function() {
+              
               var j = JSON.parse( data )
-              if( !j.support.error ) {
+              
+              if ( j.features.length !== 0 ) {
                 
-                // supported agents
-                var p = j.support.agentsProper
-                // features
                 var f = j.features
+                  , r = j.results
+                  , a = j.agents
                 
-                // concat msg
-                
-                msg_use += Object.keys( f ).map( function( k ) {
+                use += Object.keys( f ).map( function( k ) {
                   return f[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                msg_with += Object.keys( p ).map( function( k ) {
-                  return k + ' ' + p[ k ]
+                agents += Object.keys( r ).map( function( k ) {
+                  return j.agents[ k ].name + ' ' + r[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                
-                if( msg_use.length && msg_with.length ) {
-                  message.say( message.user + ': You can use ' + msg_use + ' with ' + msg_with + '.' )
-                }
+                message.say( message.user + ': You can use ' + use + ' with ' + agents + '. http://sandbox.thewikies.com/caniuse/' + search + '.html' )
               }
             })
         })
