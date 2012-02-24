@@ -454,7 +454,7 @@ bot = jerk( function( j ) {
                   return j.agents[ k ].name + ' ' + r[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                message.say( message.user + ': You can use ' + use + ' with ' + agents + '. http://sandbox.thewikies.com/caniuse/' + search + '.html' )
+                message.say( message.user + ': You can use ' + use + ' with ' + agents + '.' )
               }
             })
         })
