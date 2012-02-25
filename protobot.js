@@ -151,7 +151,7 @@ bot = jerk( function( j ) {
   // Noobs
   j.watch_for( /^(?:hi|hello|hey)$/i, function( message ) {
     var r = [ 'oh hai!', 'why hello there', 'hey', 'hi', 'sup?', 'hola', 'yo!' ]
-    message.say( message.user + ': ' + r[ Math.round( Math.random() * r.length ) ] )
+    message.say( message.user + ': ' + r[ Math.floor( Math.random() * r.length ) ] )
   })
 
   // Boom!
