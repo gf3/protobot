@@ -354,6 +354,8 @@ bot = jerk( function( j ) {
     duckDuckGo.search( term, function( results ) {
       if ( results["AbstractText"] && results["AbstractURL"] )
         message.say( user + ': ' + unescapeAll( results["AbstractText"] ) + ' - ' + results["AbstractURL"] )
+      else if ( results["Redirect"] ) // !bang syntax used
+        message.say( user + ': ' + results["Redirect"] )
       else
         message.say( user + ": Sorry, no results for '" + term + "'" )
     })
