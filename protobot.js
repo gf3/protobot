@@ -14,6 +14,7 @@ var util = require( 'util' )
   , Sandbox =  require( 'sandbox' )
   , Octo = require( './vendor/octo/octo' )
   , Google = require( './vendor/google/google' )
+  , DuckDuckGo = require( './vendor/duckduckgo/duckduckgo' )
   , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
   , unescapeAll = require( './vendor/unescape/unescape' )
   , weather = require( './vendor/weather/weather' )
@@ -52,6 +53,9 @@ sandbox = new Sandbox()
 
 // Google
 google = new Google()
+
+// DuckDuckGo
+duckDuckGo = new DuckDuckGo()
 
 // WolframAlpha
 wa = new WolframAlpha()
@@ -342,6 +346,19 @@ bot = jerk( function( j ) {
     })
   })
 
+  // DuckDuckGo
+  j.watch_for( /^([\/.,`?]?)ddg ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
+    var user = to( message, 3 )
+      , term = message.match_data[2]
+
+    duckDuckGo.search( term, function( results ) {
+      if ( results["AbstractText"] && results["AbstractURL"] )
+        message.say( user + ': ' + unescapeAll( results["AbstractText"] ) + ' - ' + results["AbstractURL"] )
+      else
+        message.say( user + ": Sorry, no results for '" + term + "'" )
+    })
+  })
+
   // Wolfram Alpha
   j.watch_for( /^([\/.,`?]?)wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     var user = to( message, 3 )
@@ -465,7 +482,7 @@ bot = jerk( function( j ) {
 
 /* ------------------------------ Functions ------------------------------ */
 function to ( message, def, idx ) {
-  if ( typeof idx === 'undefined' && typeof def === 'number' )
+  if ( idx === undefined && typeof def === 'number' )
     idx = def, def = null
   else
     idx = idx || 1

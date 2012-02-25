@@ -11,6 +11,9 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
   <dt>cred</dt>
   <dd>Display GitHub nerd cred for a user. E.g.: <code>cred jeresig</code></dd>
 
+  <dt>ddg</dt>
+  <dd>Get an abstract of some term, from DuckDuckGo. E.g.: <code>ddg jQuery</code></dd>
+
   <dt>eval</dt>
   <dd>Evaluate some Javascript. E.g.: <code>eval var a = 1; a++</code></dd>
 
@@ -23,8 +26,14 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
   <dt>mdc</dt>
   <dd>Lookup Mozilla Developer Center documentation. E.g.: <code>mdc function apply</code></dd>
 
+  <dt>time</dt>
+  <dd>Get the time at someone's location. E.g.: <code>time divya</code></dd>
+
   <dt>wa</dt>
   <dd>Compute some shiz on Wolfram Alpha. E.g.: <code>wa Neptune</code></dd>
+
+  <dt>weather</dt>
+  <dd>Get weather data. E.g.: <code>weather gf3</code> or just <code>weather</code></dd>
 </dl>
 
 ## Triggers:
