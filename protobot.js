@@ -404,8 +404,8 @@ bot = jerk( function( j ) {
     })
   })
   
-  // MDC
-  j.watch_for( /^([\/.,`?]?)mdc ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+  // MDN, formerly known as MDC
+  j.watch_for( /^([\/.,`?]?)(?:mdc|mdn) ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
       , res  = +message.match_data[2]-1 || 0
 
