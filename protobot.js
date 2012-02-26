@@ -153,7 +153,7 @@ bot = jerk( function( j ) {
   })
   
   // Noobs
-  j.watch_for( /^(?:hi|hello|hey)$/i, function( message ) {
+  j.watch_for( RegExp("^(?:" + options.nick + "\\W+)?(?:hi|hello|hey)(?:\\W+" + options.nick + ".*)?$", "i"), function( message ) {
     var r = [ 'oh hai!', 'why hello there', 'hey', 'hi', 'sup?', 'hola', 'yo!' ]
     message.say( message.user + ': ' + r[ Math.floor( Math.random() * r.length ) ] )
   })
