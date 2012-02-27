@@ -347,9 +347,10 @@ bot = jerk( function( j ) {
   })
 
   // DuckDuckGo
-  j.watch_for( /^([\/.,`?]?)ddg ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
-    var user = to( message, 3 )
+  j.watch_for( /^([\/.,`?]?)ddg ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
+    var user = to( message, 4 )
       , term = message.match_data[2]
+      , num  = +message.match_data[3]-1 || 0
 
     duckDuckGo.search( term, function( results ) {
       if ( results["AbstractText"] )
@@ -358,6 +359,8 @@ bot = jerk( function( j ) {
         message.say( user + ': ' + results["Definition"] + ' - ' + results["DefinitionURL"] )
       else if ( results["Redirect"] ) // !bang syntax used
         message.say( user + ': ' + results["Redirect"] )
+      else if ( results["Results"].length )
+        message.say( user + ': ' + results["Results"][num]["Text"] + " - " + results["Results"][num]["FirstURL"] )
       else
         message.say( user + ": Sorry, no results for '" + term + "'" )
     })
