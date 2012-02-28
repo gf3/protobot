@@ -452,6 +452,7 @@ bot = jerk( function( j ) {
       , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
       , use = ''
       , agents = ''
+      , links = ''
       
     if( search )
     {
@@ -471,6 +472,7 @@ bot = jerk( function( j ) {
                   , a = j.agents
                 
                 use += Object.keys( f ).map( function( k ) {
+                  links += ' http://caniuse.com/#search=' + k
                   return f[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
@@ -478,7 +480,11 @@ bot = jerk( function( j ) {
                   return j.agents[ k ].name + ' ' + r[ k ]
                 }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
                 
-                message.say( message.user + ': You can use ' + use + ' with ' + agents + '.' )
+                if( agents.length ) {
+                  message.say( message.user + ': You can use ' + use + ' with ' + agents + '.' + links )
+                } else {
+                  message.say( message.user + ': ' + use + ' is not fully supported anywhere.' )
+                }
               }
             })
         })
