@@ -457,7 +457,7 @@ bot = jerk( function( j ) {
     if( search )
     {
       http
-        .get( { host: 'sandbox.thewikies.com', path: '/caniuse/' + search + '.js?noagent&readable', port: 80 }, function ( res ) {
+        .get( { host: 'api.html5please.com', path: '/' + search + '.json?noagent', port: 80 }, function ( res ) {
           var data = ''
           res
             .on( 'data', function ( c ) { data += c } )
