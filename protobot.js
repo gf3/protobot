@@ -465,7 +465,7 @@ bot = jerk( function( j ) {
               
               var j = JSON.parse( data )
               
-              if ( j.features.length !== 0 ) {
+              if ( j.supported != 'unknown' && j.features.length !== 0 ) {
                 
                 var f = j.features
                   , r = j.results
