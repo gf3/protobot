@@ -448,11 +448,7 @@ bot = jerk( function( j ) {
 
   // CANIUSE?
   j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
-    var user = to( message, 3 )
-      , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
-      , use = ''
-      , agents = ''
-      , links = ''
+    var search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
       
     if( search )
     {
@@ -470,6 +466,10 @@ bot = jerk( function( j ) {
                 var f = j.features
                   , r = j.results
                   , a = j.agents
+                  
+                  , use = ''
+                  , agents = ''
+                  , links = ''
                 
                 use += Object.keys( f ).map( function( k ) {
                   links += ' http://caniuse.com/#search=' + k
