@@ -1,0 +1,18 @@
+{ "server":   "irc.freenode.net"
+  , "nick":     "david_mark"
+  , "channels": [ "#RubyOnRails", "#runlevel6", "#inimino", "#prototype", "#jquery-ot", "#wadsup" ]
+  , "user":
+    { "username": "david_mark"
+    , "hostname": "intertubes"
+    , "servername": "tube001"
+    , "realname": "Prototype Bot"
+    }
+  , "logdir": "logs"
+  , "plugins": [ "caniuse"
+               , "duckduckgo"
+               , "google"
+               , "octo"
+               , "weather"
+               , "wolframalpha"
+               ]
+}

@@ -12,12 +12,7 @@ var util = require( 'util' )
   , groupie = require('groupie')
   , jerk = require( 'jerk' )
   , Sandbox =  require( 'sandbox' )
-  , Octo = require( './vendor/octo/octo' )
-  , Google = require( './vendor/google/google' )
-  , DuckDuckGo = require( './vendor/duckduckgo/duckduckgo' )
-  , WolframAlpha = require( './vendor/wolframalpha/wolframalpha' )
   , unescapeAll = require( './vendor/unescape/unescape' )
-  , weather = require( './vendor/weather/weather' )
   , bot
   , rclient
   , sandbox
@@ -28,18 +23,7 @@ var util = require( 'util' )
   , dynamic_json
   , c
 
-options = 
-  { server:   'irc.freenode.net'
-  , nick:     'david_mark'
-  , channels: [ '#RubyOnRails', '#runlevel6', '#inimino', '#prototype', '#jquery-ot', '#wadsup' ]
-  , user:
-    { username: 'david_mark'
-    , hostname: 'intertubes'
-    , servername: 'tube001'
-    , realname: 'Prototype Bot'
-    }
-  , logdir: 'logs'
-  }
+options = JSON.parse( fs.readFileSync( process.argv[2] || "settings.json" ) );
 
 // Dynamic JSON reloads
 dynamic_json = {}
@@ -50,15 +34,6 @@ reloadJSON(
 
 // Sandbox
 sandbox = new Sandbox()
-
-// Google
-google = new Google()
-
-// DuckDuckGo
-duckDuckGo = new DuckDuckGo()
-
-// WolframAlpha
-wa = new WolframAlpha()
 
 /* ------------------------------ Simple Commands ------------------------------ */
 commands =
@@ -225,36 +200,6 @@ bot = jerk( function( j ) {
       message.say( 'Error: User not found.' )
   })
 
-  // GitHub User
-  j.watch_for( /^([\/.,`?]?)gh(\s+\w+)?\s*$/, function( message ) {
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    var name = to( message, 2 )
-    Octo.user( name, function( err, user ) {
-      if ( err )
-        message.say( 'Error: ' + err.message )
-      else
-        message.say( 'GitHub user: ' + user.login + ' (' + user.name + ') Repos: ' + user.public_repos + ' • Following: ' + user.following + ' • Followers: ' + user.followers )
-    })
-  })
-
-  // Nerd Cred
-  j.watch_for( /^([\/.,`?]?)cred(\s+\w+)?\s*$/, function( message ) {
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    var name = to( message, 2 )
-    Octo.score( name, function( err, score ) {
-      if ( err )
-        message.say( 'Error: ' + err.message )
-      else
-        message.say( 'GitHub User: ' + name + ' • Score: ' + score )
-    })
-  })
- 
   // Sandbox
   j.watch_for( /^([\/.,`?]?)eval (?:(.+?)(?:\/\/\s*@\s*([-\[\]\{\}`|_\w]+))|(.+))/, function( message ){
     // Return if botty is present
@@ -328,85 +273,7 @@ bot = jerk( function( j ) {
   j.watch_for( /^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
   })
-  
-  // Google
-  j.watch_for( /^([\/.,`?]?)g ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
-    var user = to( message, 4 )
-      , res  = +message.match_data[3]-1 || 0
 
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    google.search( message.match_data[2], function( results ) {
-      if ( results.length )
-        message.say( user + ': ' + unescapeAll( results[res].titleNoFormatting ) + ' - ' + results[res].unescapedUrl )
-      else 
-        message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
-    })
-  })
-
-  // DuckDuckGo
-  j.watch_for( /^([\/.,`?]?)ddg ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
-    var user = to( message, 4 )
-      , term = message.match_data[2]
-      , num  = +message.match_data[3]-1 || 0
-
-    duckDuckGo.search( term, function( results ) {
-      if ( results["AbstractText"] )
-        message.say( user + ': ' + unescapeAll( results["AbstractText"] ) + ' - ' + results["AbstractURL"] )
-      else if ( results["Definition"] )
-        message.say( user + ': ' + results["Definition"] + ' - ' + results["DefinitionURL"] )
-      else if ( results["Redirect"] ) // !bang syntax used
-        message.say( user + ': ' + results["Redirect"] )
-      else if ( results["Results"].length )
-        message.say( user + ': ' + results["Results"][num]["Text"] + " - " + results["Results"][num]["FirstURL"] )
-      else
-        message.say( user + ": Sorry, no results for '" + term + "'" )
-    })
-  })
-
-  // Wolfram Alpha
-  j.watch_for( /^([\/.,`?]?)wa ([^@]+)(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
-    var user = to( message, 3 )
-
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    wa.search( message.match_data[2], function( result ) {
-      message.say( user + ": " + ( result && result.data ? unescapeAll( result.data ) : "Sorry, no results for '" + message.match_data[2] + "'" ) )
-    })
-  })
-
-  // Weather
-  j.watch_for( /^([\/.,`?]?)(time|weather)(\s+[^@]+)?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
-    var user = to( message, 4 )
-      , location = message.match_data[3]
-      , person
-
-    if ( location )
-      location = location.trim()
-
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    // Try and find by person first
-    person = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == location } )
-    if ( person.length )
-      location = person[0].location
-    else if ( !person.length )
-      person = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == user } )
-
-    if ( location == undefined && person.length )
-      location = person[0].location
-
-    weather( location, message.match_data[2] == 'time', function( result ) {
-      message.say( user + ": " + result )
-    })
-  })
-  
   // MDN, formerly known as MDC
   j.watch_for( /^([\/.,`?]?)(?:mdc|mdn) ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
     var user = to( message, 3 )
@@ -445,53 +312,21 @@ bot = jerk( function( j ) {
       log.end()
     })
   })
+}).connect( options )
 
-  // CANIUSE?
-  j.watch_for( /^([\/.,`?]?)caniuse ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function ( message ) {
-    var user = to( message, 3 )
-      , search =  message.match_data[ 2 ].split( ' ' ).join( '+' )
-      , use = ''
-      , agents = ''
-      , links = ''
-      
-    if( search )
-    {
-      http
-        .get( { host: 'api.html5please.com', path: '/' + search + '.json?noagent', port: 80 }, function ( res ) {
-          var data = ''
-          res
-            .on( 'data', function ( c ) { data += c } )
-            .on( 'end', function() {
-              
-              var j = JSON.parse( data )
-              
-              if ( j.supported != 'unknown' && j.features.length !== 0 ) {
-                
-                var f = j.features
-                  , r = j.results
-                  , a = j.agents
-                
-                use += Object.keys( f ).map( function( k ) {
-                  links += ' http://caniuse.com/#search=' + k
-                  return f[ k ]
-                }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
-                
-                agents += Object.keys( r ).map( function( k ) {
-                  return j.agents[ k ].name + ' ' + r[ k ]
-                }).join( ', ' ).replace( /,([^,]*?)$/, ', and$1' )
-                
-                if( agents.length ) {
-                  message.say( message.user + ': You can use ' + use + ' with ' + agents + '.' + links )
-                } else {
-                  message.say( message.user + ': ' + use + ' is not fully supported anywhere.' )
-                }
-              }
-            })
-        })
+// Register plugins
+if ( options["plugins"] )
+  options["plugins"].forEach( function( plugin ) {
+    var plugReg = require( "./plugins/" + plugin ).register
+    try {
+      jerk( function( j ) {
+        // Gross hack until global var is dead
+        plugReg( j, dynamic_json )
+      })
+    } catch (e) {
+      console.error( "Failed to register plugin %s: %s", plugin, e )
     }
   })
-
-}).connect( options )
 
 /* ------------------------------ Functions ------------------------------ */
 function to ( message, def, idx ) {
