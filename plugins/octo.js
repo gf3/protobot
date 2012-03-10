@@ -3,6 +3,35 @@ var Octo = module.exports = {}
   , https = require( 'https' )
   , cache = {}
 
+Octo.register = function( j ) {
+  // GitHub User
+  j.watch_for( /^([\/.,`?]?)gh\s+(\w+)\s*$/, function( message ) {
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+    var name = message.match_data[2]
+    Octo.user( name, function( err, user ) {
+      if ( err )
+        message.say( 'Error: ' + err.message )
+      else
+        message.say( 'GitHub user: ' + user.login + (user.name ? ' (' + user.name + ') ' : 'NO NAME') + 'Repos: ' + user.public_repos + ' • Following: ' + user.following + ' • Followers: ' + user.followers )
+    })
+  })
+  // Nerd Cred
+  j.watch_for( /^([\/.,`?]?)cred\s+(\w+)\s*$/, function( message ) {
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+    var name = message.match_data[2]
+    Octo.score( name, function( err, score ) {
+      if ( err )
+        message.say( 'Error: ' + err.message )
+      else
+        message.say( 'GitHub User: ' + name + ' • Score: ' + score )
+    })
+  })
+}
+
 // Get GitHub User
 Octo.user = function user ( username, hollaback ) {
   // Cached?
@@ -28,7 +57,7 @@ Octo.score = function score ( username, hollaback ) {
       hollaback.call( null, err )
       return
     }
-    
+
     // Get repos
     api( '/repos/show/' + username, true, function( err, data ) {
       if ( err ) {
@@ -76,14 +105,12 @@ function api ( endpoint, v2, hollaback ) {
     method = https
   }
 
-  ;;; console.log( options.path )
-
   method.get( options, function( res ) {
     var data = ''
 
     res.on( 'data', function( chunk ) {
       data += chunk
-    }).on( 'end', function(){
+    }).on( 'end', function() {
       hollaback.call( null, undefined, JSON.parse( data ) )
     })
 
@@ -91,4 +118,3 @@ function api ( endpoint, v2, hollaback ) {
     hollaback.call( null, err )
   })
 }
-

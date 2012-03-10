@@ -21,7 +21,7 @@ function toF ( C ) {
   return Math.round( parseInt( C, 10 ) * ( 9 / 5 ) + 32 )
 }
 
-module.exports = function getWeather ( location, justTime, holla ) {
+function getWeather ( location, justTime, holla ) {
   if ( !location )
     holla( "Please provide a location" )
 
@@ -67,3 +67,31 @@ module.exports = function getWeather ( location, justTime, holla ) {
   })
 }
 
+exports.register = function( j, dynamic_json ) {
+  j.watch_for( /^([\/.,`?]?)(time|weather)(\s+[^@]+)?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
+    var user = message.match_data[4] || message.user
+      , location = message.match_data[3]
+      , person
+
+    if ( location )
+      location = location.trim()
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    // Try and find by person first
+    person = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == location } )
+    if ( person.length )
+      location = person[0].location
+    else if ( !person.length )
+      person = dynamic_json.crew.filter( function( v, i, a ) { return v.irc == user } )
+
+    if ( location == undefined && person.length )
+      location = person[0].location
+
+    getWeather( location, message.match_data[2] == 'time', function( result ) {
+      message.say( user + ": " + result )
+    })
+  })
+}
