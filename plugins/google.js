@@ -16,7 +16,6 @@ function register( j ) {
   var google = new Google
 
   j.watch_for( /^([\/.,`?]?)g(?:[ogle]{0,5}) ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]\{\}`|_\w]+))?$/, function( message ) {
-    try {
     var user = message.match_data[4] || message.user
       , res  = +message.match_data[3]-1 || 0
 
@@ -30,7 +29,23 @@ function register( j ) {
       else
         message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
     })
-    } catch (e) { console.info(e) }
+  })
+
+  // MDN, formerly known as MDC
+  j.watch_for( /^([\/.,`?]?)(?:mdc|mdn) ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
+    var user = message.match_data[4] || message.user
+      , res  = +message.match_data[2]-1 || 0
+
+    // Return if botty is present
+    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
+      return
+
+    google.search( message.match_data[2] + ' site:developer.mozilla.org', function( results ) {
+      if ( results.length )
+        message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
+      else
+        message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
+    })
   })
 }
 

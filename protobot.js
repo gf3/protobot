@@ -13,17 +13,16 @@ var util = require( 'util' )
   , jerk = require( 'jerk' )
   , Sandbox =  require( 'sandbox' )
   , unescapeAll = require( './vendor/unescape/unescape' )
+  , settingsFile = path.join( __dirname, "..", "settings.json" )
   , bot
   , rclient
   , sandbox
-  , google
-  , wa
   , options
   , commands
   , dynamic_json
   , c
 
-options = JSON.parse( fs.readFileSync( process.argv[2] || "settings.json" ) );
+options = JSON.parse( fs.readFileSync( process.argv[2] || settingsFile ) );
 
 // Dynamic JSON reloads
 dynamic_json = {}
@@ -130,7 +129,9 @@ bot = jerk( function( j ) {
   // Noobs
   j.watch_for( RegExp("^(?:" + options.nick + "\\W+)?(?:hi|hello|hey)(?:\\W+" + options.nick + ".*)?$", "i"), function( message ) {
     var r = [ 'oh hai!', 'why hello there', 'hey', 'hi', 'sup?', 'hola', 'yo!' ]
-    message.say( message.user + ': ' + r[ Math.floor( Math.random() * r.length ) ] )
+    setTimeout( function() {
+      message.say( message.user + ': ' + r[ Math.floor( Math.random() * r.length ) ] )
+    }, Math.round( Math.random() * 10000 ))
   })
 
   // Boom!
@@ -272,23 +273,6 @@ bot = jerk( function( j ) {
   // "it doesn't work"
   j.watch_for( /^(?:it )?doesn(?:')?t work(?:\s*@\s*([-\[\]\{\}`|_\w]+))?/, function( message ) {
     message.say( to( message, "doesn't work" ) + ": What do you mean it doesn't work?  What happens when you try to run it?  What's the output?  What's the error message?  Saying \"it doesn't work\" is pointless." )
-  })
-
-  // MDN, formerly known as MDC
-  j.watch_for( /^([\/.,`?]?)(?:mdc|mdn) ([^#@]+)(?:\s*#([1-9]))?(?:\s*@\s*([-\[\]|_\w]+))?$/, function( message ) {
-    var user = to( message, 3 )
-      , res  = +message.match_data[2]-1 || 0
-
-    // Return if botty is present
-    if ( message.match_data[1] == '?' && message.source.clients.indexOf( 'bot-t' ) >= 0 )
-      return
-
-    google.search( message.match_data[2] + ' site:developer.mozilla.org', function( results ) {
-      if ( results.length )
-        message.say( user + ": " + results[res].titleNoFormatting + " - " + results[res].unescapedUrl )
-      else
-        message.say( user + ": Sorry, no results for '" + message.match_data[2] + "'" )
-    })
   })
 
   // Prototype API
