@@ -13,7 +13,7 @@ var util = require( 'util' )
   , jerk = require( 'jerk' )
   , Sandbox =  require( 'sandbox' )
   , unescapeAll = require( './vendor/unescape/unescape' )
-  , settingsFile = path.join( __dirname, "..", "settings.json" )
+  , settingsFile = path.join( __dirname, "settings.json" )
   , bot
   , rclient
   , sandbox
