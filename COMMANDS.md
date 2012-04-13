@@ -18,7 +18,7 @@ You can add `@ user` to most commands/triggers to direct output towards others. 
   <dd>Evaluate some Javascript. E.g.: <code>eval var a = 1; a++</code></dd>
 
   <dt>g</dt>
-  <dd>Return the fist google result. E.g.: <code>g fermion address map</code></dd>
+  <dd>Return the first google result. E.g.: <code>g fermion address map</code></dd>
 
   <dt>gh</dt>
   <dd>Display GitHub user information. E.g.: <code>gh coldhead</code></dd>
